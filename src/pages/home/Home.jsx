@@ -42,12 +42,12 @@ export default function Home() {
                     />
                 </div>
                 <div className="h-full w-full flex flex-col justify-evenly items-center">
-                    <h1 className=" font-Sevillana text-7xl text-center">
+                    <h1 className=" font-Sevillana capitalize font-semibold text-7xl text-center">
                         {data?.tag_line}
                     </h1>
-                    <h2 className="  uppercase text-primary font-Facinate text-3xl">
+                    {/* <h2 className="  uppercase text-primary font-Facinate text-3xl">
                         * word of <br /> Disfrutón
-                    </h2>
+                    </h2> */}
                     <div className=" w-full flex justify-around self-center h-[70px] items-center fixed bottom-0 z-50 bg-white">
                         <button
                             onClick={() => {

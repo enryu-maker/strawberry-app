@@ -2,6 +2,10 @@ import axios from 'axios'
 import { baseURL } from '../../helper/helper'
 import { toast } from 'react-toastify'
 
+export const googleAction = () => {
+    return async (dispatch) => {}
+}
+
 export const loginAction = (data, setLoading) => {
     setLoading(true)
     return async (dispatch) => {

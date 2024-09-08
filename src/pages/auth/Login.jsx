@@ -9,10 +9,24 @@ import { useDispatch } from 'react-redux'
 import { loginAction } from '../../store/actions/authActions'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { useGoogleOneTapLogin } from 'react-google-one-tap-login'
+import { signInWithGooglePopup } from '../../helper/firebase.utils'
 export default function Login() {
-    const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const logGoogleUser = async () => {
+        console.log('hello')
+        const response = await signInWithGooglePopup()
+        console.log(response)
+    }
+    const dispatch = useDispatch()
+    useGoogleOneTapLogin({
+        onError: (error) => console.log(error),
+        onSuccess: (response) => console.log(response),
+        googleAccountConfigs: {
+            client_id:
+                '314688224691-9g7dmq9pj3u003fpkehs6u1i2f047nir.apps.googleusercontent.com'
+        }
+    })
     const [data, setData] = React.useState({
         email: '',
         password: ''
@@ -98,7 +112,12 @@ export default function Login() {
                         <hr className="w-[30%] h-[1px] bg-black" />
                     </div>
                     <div className="flex w-full flex-col  justify-between items-center">
-                        <button className=" border-[1px] w-[100%]  rounded-lg bg-white px-2 py-4 border-black flex justify-center items-center space-x-2">
+                        <button
+                            onClick={() => {
+                                logGoogleUser()
+                            }}
+                            className=" border-[1px] w-[100%]  rounded-lg bg-white px-2 py-4 border-black flex justify-center items-center space-x-2"
+                        >
                             <img
                                 alt="google"
                                 className="h-[25px] w-[25px]"
