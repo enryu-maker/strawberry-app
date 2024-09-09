@@ -4,12 +4,18 @@ import Home from './pages/home/Home'
 import Menu from './pages/home/Menu'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
+import ProductInfo from './pages/home/ProductInfo'
+import Order from './pages/home/Order'
+import Payment from './pages/home/Payment'
 
 export default function App() {
     return (
         <Routes>
             <Route path="/restaurants/:rid/:tid" element={<Home />} />
             <Route path="/menu" element={<Menu />} />
+            <Route path="/menu/product-info" element={<ProductInfo />} />
+            <Route path="/order-details" element={<Order />} />
+            <Route path="/payment" element={<Payment />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
         </Routes>

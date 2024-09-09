@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRef } from 'react'
 import { RxCross1 } from 'react-icons/rx'
@@ -34,7 +34,7 @@ export default function SideNav({ isOpen, setIsopen }) {
                         duration: 0.5
                     }}
                 >
-                    <div className="h-full w-full flex flex-col justify-between items-center">
+                    <div className="h-full w-full z-50 flex flex-col justify-between items-center">
                         <div className="h-[45vh] w-[100%] flex flex-col justify-between items-center">
                             <div className="flex w-full  justify-between items-center">
                                 <button

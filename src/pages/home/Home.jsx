@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 import {
     AiFillFacebook,
@@ -96,7 +95,7 @@ export default function Home() {
                             } mx-2`}
                         >
                             <img
-                                alt="image"
+                                alt="icon"
                                 src={image}
                                 className="w-full h-full object-cover"
                             />

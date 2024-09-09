@@ -1,11 +1,10 @@
 import React from 'react'
-
 import TextInput from '../../components/TextInput'
 import { AnimatePresence, motion } from 'framer-motion'
 import { image } from '../../assets/image'
 import CustomButton from '../../components/CustomButton'
 import Header from '../../components/Header'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { registerAction } from '../../store/actions/authActions'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
