@@ -70,7 +70,6 @@ export default function Payment() {
                     By continuing, I agree to User Terms and Privacy Policy
                 </p>
                 <p className=" font-SUSE">secure payments with 🍓 strawberry</p>
-                <p className=" font-SUSE">{fpHash}</p>
             </div>
         </div>
     )
