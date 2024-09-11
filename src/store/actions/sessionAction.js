@@ -5,9 +5,9 @@ export const Init = () => {
     return async (dispatch) => {
         try {
             const session_id = localStorage.getItem('session_id')
-            const user_d = localStorage.setItem('user_id')
-            const rid = localStorage.setItem('rid')
-            const tid = localStorage.setItem('tid')
+            const user_d = localStorage.getItem('user_id')
+            const rid = localStorage.getItem('rid')
+            const tid = localStorage.getItem('tid')
             dispatch({
                 type: 'STORE_QR_DATA',
                 payload: {

@@ -20,12 +20,13 @@ export default function Payment() {
 
     function getData() {
         const data = {}
-        cart.map((item) => {
+        cart.forEach((item) => {
+            // Use forEach instead of map
             var id = String(item?.id)
             var qty = item?.qty
             data[id] = qty
         })
-        return JSON.stringify(data)
+        return JSON.stringify(data) // Return the data as a JSON string
     }
 
     React.useEffect(() => {
@@ -40,7 +41,7 @@ export default function Payment() {
             }, 1500)
         }
         setFp()
-    }, [])
+    }, [dispatch, tid])
     return (
         <div className="bg-white w-full h-[100vh] font-SUSE">
             <div className="flex justify-between top-0 sticky z-50  px-5 py-5 h-[10vh] items-center w-full">

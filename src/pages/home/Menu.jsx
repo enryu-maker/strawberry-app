@@ -56,64 +56,81 @@ export default function Menu() {
             </div>
             {show ? <SideNav isOpen={show} setIsopen={setShow} /> : null}
             {!loading ? (
-                <Tabs value={menu[0]?.value}>
-                    <TabsHeader
-                        className="rounded-none fixed bottom-0 w-full h-[70px] bg-white z-20 opacity-100 backdrop-blur-md p-0 overflow-x-scroll"
-                        indicatorProps={{
-                            className:
-                                'bg-transparent border-b-2  border-primary shadow-none rounded-none'
-                        }}
-                    >
-                        {menu.map(({ label, value }) => (
-                            <Tab
-                                className={
-                                    activeTab === value
-                                        ? 'text-primary font-SUSE font-semibold text-lg'
-                                        : 'text-gray-800 font-SUSE font-semibold text-lg'
-                                }
+                <>
+                    <Tabs value={menu[0]?.value}>
+                        <TabsHeader
+                            className="rounded-none fixed bottom-0 w-full h-[70px] bg-white z-20 opacity-100 backdrop-blur-md p-0 overflow-x-scroll"
+                            indicatorProps={{
+                                className:
+                                    'bg-transparent border-b-2  border-primary shadow-none rounded-none'
+                            }}
+                        >
+                            {menu.map(({ label, value }) => (
+                                <Tab
+                                    className={
+                                        activeTab === value
+                                            ? 'text-primary font-SUSE font-semibold text-lg'
+                                            : 'text-gray-800 font-SUSE font-semibold text-lg'
+                                    }
+                                    onClick={() => {
+                                        setActiveTab(value)
+                                    }}
+                                    key={value}
+                                    value={value}
+                                >
+                                    {label}
+                                </Tab>
+                            ))}
+                        </TabsHeader>
+                        <TabsBody
+                            animate={{
+                                initial: { y: 250 },
+                                mount: { y: 0 },
+                                unmount: { y: 250 }
+                            }}
+                            className="pb-[70px]"
+                        >
+                            {menu.map(({ value, data }) => (
+                                <TabPanel
+                                    className="text-gray-800 font-SUSE"
+                                    key={value}
+                                    value={value}
+                                >
+                                    {data.map((item, index) => (
+                                        <div key={index} className="py-2">
+                                            <h1 className="font-bold text-2xl pb-2 text-primary">
+                                                {item?.category}
+                                            </h1>
+                                            {item?.menu_items?.map(
+                                                (item, index) => (
+                                                    <MenuCard
+                                                        key={index}
+                                                        item={item}
+                                                    />
+                                                )
+                                            )}
+                                        </div>
+                                    ))}
+                                </TabPanel>
+                            ))}
+                        </TabsBody>
+                    </Tabs>
+                    {cart?.length > 0 ? (
+                        <div className="flex sticky bottom-[75px] font-SUSE text-white text-2xl w-full justify-center z-20 items-center">
+                            <button
                                 onClick={() => {
-                                    setActiveTab(value)
+                                    navigate('/order-details')
                                 }}
-                                key={value}
-                                value={value}
+                                className="  bg-primary flex justify-center items-center rounded-full w-[88%] h-[55px]"
                             >
-                                {label}
-                            </Tab>
-                        ))}
-                    </TabsHeader>
-                    <TabsBody
-                        animate={{
-                            initial: { y: 250 },
-                            mount: { y: 0 },
-                            unmount: { y: 250 }
-                        }}
-                        className="pb-[70px]"
-                    >
-                        {menu.map(({ value, data }) => (
-                            <TabPanel
-                                className="text-gray-800 font-SUSE"
-                                key={value}
-                                value={value}
-                            >
-                                {data.map((item, index) => (
-                                    <div key={index} className="py-2">
-                                        <h1 className="font-bold text-2xl pb-2 text-primary">
-                                            {item?.category}
-                                        </h1>
-                                        {item?.menu_items?.map(
-                                            (item, index) => (
-                                                <MenuCard
-                                                    key={index}
-                                                    item={item}
-                                                />
-                                            )
-                                        )}
-                                    </div>
-                                ))}
-                            </TabPanel>
-                        ))}
-                    </TabsBody>
-                </Tabs>
+                                View your order{' '}
+                                <p className="h-[30px] w-[30px] font-bold bg-white ml-5 text-primary rounded-full">
+                                    {cart?.length}
+                                </p>
+                            </button>
+                        </div>
+                    ) : null}
+                </>
             ) : (
                 <div className="flex justify-center flex-col space-y-4 items-center">
                     <RotatingLines
@@ -132,22 +149,6 @@ export default function Menu() {
                     </p>
                 </div>
             )}
-
-            {cart?.length > 0 ? (
-                <div className="flex sticky bottom-[75px] font-SUSE text-white text-2xl w-full justify-center z-20 items-center">
-                    <button
-                        onClick={() => {
-                            navigate('/order-details')
-                        }}
-                        className="  bg-primary flex justify-center items-center rounded-full w-[88%] h-[55px]"
-                    >
-                        View your order{' '}
-                        <p className="h-[30px] w-[30px] font-bold bg-white ml-5 text-primary rounded-full">
-                            {cart?.length}
-                        </p>
-                    </button>
-                </div>
-            ) : null}
         </div>
     )
 }

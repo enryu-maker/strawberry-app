@@ -19,7 +19,7 @@ export default function Success() {
                 OrderID : {state?.order_item_id}
             </h1>
             <button className="w-[88%] bg-primary py-3 text-white font-bold text-lg rounded-full">
-                <Link to={`/restaurant/${rid}/${tid}`}>Back to Home</Link>
+                <Link to={`/restaurants/${rid}/${tid}`}>Back to Home</Link>
             </button>
         </div>
     )

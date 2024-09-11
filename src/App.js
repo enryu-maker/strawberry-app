@@ -12,7 +12,7 @@ import Success from './pages/home/modals/Success'
 export default function App() {
     return (
         <Routes>
-            <Route path="/restaurant/:rid/:tid" element={<Home />} />
+            <Route path="/restaurants/:rid/:tid" element={<Home />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/menu/product-info" element={<ProductInfo />} />
             <Route path="/order-details" element={<Order />} />
