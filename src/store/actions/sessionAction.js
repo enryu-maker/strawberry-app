@@ -47,3 +47,20 @@ export const startSession = (table_id, fpHash, setConnected) => {
             })
     }
 }
+
+export const createOrder = (data, navigate, setLoading) => {
+    setLoading(true)
+    return async (dispatch) => {
+        await axios
+            .post(baseURL + '/add-order-item/', data)
+            .then((res) => {
+                navigate('/success', {
+                    state: res?.data
+                })
+                setLoading(false)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+}

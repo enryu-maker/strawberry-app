@@ -8,7 +8,10 @@ export default function CartCard({ item }) {
     return (
         <div className="h-[100px] w-[92%] flex justify-between ">
             <div className="w-[60%] flex space-x-3 ">
-                <div className="h-[80px] rounded-xl w-[80px] bg-blue-gray-50"></div>
+                <img
+                    src={item?.image}
+                    className="h-[80px] rounded-xl w-[80px] "
+                />
                 <div className="w-[60%]">
                     <h2 className=" font-semibold text-base flex items-center text-black">
                         {item?.name}

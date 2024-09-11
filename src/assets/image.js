@@ -3,5 +3,6 @@ export const image = {
     hide: require('./hide.png'),
     view: require('./view.png'),
     later: require('./later.png'),
-    now: require('./now.png')
+    now: require('./now.png'),
+    success: require('./success.png')
 }
