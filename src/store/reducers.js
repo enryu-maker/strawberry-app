@@ -23,6 +23,11 @@ export default (state = initialState, action) => {
                 ...state,
                 restaurant_data: action.payload
             }
+        case 'SET_MENU':
+            return {
+                ...state,
+                menu: action.payload
+            }
         case 'ADD_TO_CART':
             return {
                 ...state,

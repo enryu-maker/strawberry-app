@@ -22,14 +22,34 @@ export const storeQRData = (rid, tid) => {
 export const getRestaurant = (id) => {
     return async (dispatch) => {
         await axios
-            .get(baseURL + `/get-resturant-details`, {
+            .get(baseURL + `/get-restaurant-details`, {
                 params: {
-                    resturant_id: id
+                    restaurant_id: id
                 }
             })
             .then((response) => {
                 dispatch({
                     type: 'SET_RESTAURANT',
+                    payload: response.data
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+
+export const getMenu = (id) => {
+    return async (dispatch) => {
+        await axios
+            .get(baseURL + `/get-menu`, {
+                params: {
+                    restaurant_id: id
+                }
+            })
+            .then((response) => {
+                dispatch({
+                    type: 'SET_MENU',
                     payload: response.data
                 })
             })

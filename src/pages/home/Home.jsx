@@ -7,6 +7,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { storeQRData, getRestaurant } from '../../store/actions/homeActions'
+import { Init } from '../../store/actions/sessionAction'
 
 export default function Home() {
     const location = useLocation()
@@ -14,6 +15,8 @@ export default function Home() {
     const dispatch = useDispatch()
 
     const data = useSelector((state) => state.Reducers.restaurant_data)
+    const session_id = useSelector((state) => state.Reducers.session_id)
+
     React.useEffect(() => {
         dispatch(
             storeQRData(
@@ -21,6 +24,7 @@ export default function Home() {
                 location.pathname.split('/')[3]
             )
         )
+        dispatch(Init())
         dispatch(getRestaurant(location.pathname.split('/')[2]))
     }, [dispatch, location])
 
@@ -44,23 +48,27 @@ export default function Home() {
                     <h1 className=" font-Sevillana capitalize font-semibold text-7xl text-center">
                         {data?.tag_line}
                     </h1>
-                    {/* <h2 className="  uppercase text-primary font-Facinate text-3xl">
+                    <h2 className="  uppercase text-primary font-Facinate text-3xl">
                         * word of <br /> Disfrutón
-                    </h2> */}
-                    <div className=" w-full flex justify-around self-center h-[70px] items-center fixed bottom-0 z-50 bg-white">
+                    </h2>
+                    <div className=" w-full flex justify-around self-center h-[70px] items-center fixed bottom-0 z-50 backdrop-blur-lg">
                         <button
                             onClick={() => {
                                 navigate(
-                                    `/menu/?restaurant_id=${data?.resturant_id}&restaurant_name=${data?.name}`
+                                    `/menu/?restaurant_id=${
+                                        location.pathname.split('/')[2]
+                                    }&restaurant_name=${data?.name}`
                                 )
                             }}
-                            className=" bg-primary outline-none lowercase font-semibold  h-[40px] w-[40%] rounded-md text-2xl font-SUSE text-white"
+                            className=" bg-primary outline-none  font-semibold  h-[40px] w-[40%] rounded-full text-2xl font-SUSE text-white"
                         >
                             View Menu
                         </button>
-                        <button className=" border-primary border-2 lowercase bg-white  outline-none font-semibold  h-[40px] w-[40%] rounded-md text-2xl font-SUSE text-primary">
-                            Pay Bill
-                        </button>
+                        {session_id !== null && session_id !== undefined ? (
+                            <button className=" border-primary border-2 lowercase bg-white  outline-none font-semibold  h-[40px] w-[40%] rounded-md text-2xl font-SUSE text-primary ">
+                                Pay bill
+                            </button>
+                        ) : null}
                     </div>
                 </div>
             </div>

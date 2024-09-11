@@ -25,7 +25,10 @@ export default function MenuCard({ item }) {
                     € {item?.price}
                 </h2>
             </div>
-            <div className="w-[30%] bg-blue-gray-200 h-[100px] rounded-lg mb-2"></div>
+            <img
+                src={item?.image}
+                className="w-[30%] h-[100px] rounded-lg mb-2"
+            />
             <button
                 onClick={() => {
                     dispatch({
