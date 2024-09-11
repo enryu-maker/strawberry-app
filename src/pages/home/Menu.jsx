@@ -16,7 +16,7 @@ import MenuCard from '../../components/MenuCard'
 import { RotatingLines } from 'react-loader-spinner'
 export default function Menu() {
     const [show, setShow] = React.useState(false)
-    const [loading, setLoading] = React.useState(true)
+    const [loading, setLoading] = React.useState(false)
     const navigate = useNavigate()
     const location = useLocation()
     const dispatch = useDispatch()
@@ -24,13 +24,12 @@ export default function Menu() {
         const params = new URLSearchParams(location.search)
         dispatch(getRestaurant(params.get('restaurant_id')))
         dispatch(getMenu(params.get('restaurant_id')))
-        setTimeout(() => {
-            setLoading(false)
-        }, 1500)
+        // setTimeout(() => {
+        //     setLoading(false)
+        // }, 1000)
     }, [dispatch, location.search])
     const cart = useSelector((state) => state.Reducers.cart)
     const menu = useSelector((state) => state.Reducers.menu)
-    console.log(menu[0]?.value)
     const [activeTab, setActiveTab] = React.useState(menu[0]?.value)
     return (
         <div className="bg-white w-full h-[100vh]">
