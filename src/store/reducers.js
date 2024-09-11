@@ -6,7 +6,6 @@ const initialState = {
     restaurant_data: {},
     menu: [],
     cart: [],
-    session_id: null,
     user_id: null
 }
 

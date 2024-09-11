@@ -21,7 +21,11 @@ export default function ProductInfo() {
                 </button>
             </div>
             <div className="flex justify-start flex-col items-center space-y-5 h-[85vh] ">
-                <img src={state?.image} className="h-[150px] w-[150px] " />
+                <img
+                    alt="alt"
+                    src={state?.image}
+                    className="h-[150px] w-[150px] "
+                />
                 <div className="w-[88%] flex flex-col items-start space-y-3 justify-center">
                     <div className="w-full flex items-center justify-between">
                         <h1 className="text-3xl font-bold text-white">

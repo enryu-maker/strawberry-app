@@ -26,6 +26,7 @@ export default function MenuCard({ item }) {
                 </h2>
             </div>
             <img
+                alt="alt"
                 src={item?.image}
                 className="w-[30%] h-[100px] rounded-lg mb-2"
             />
