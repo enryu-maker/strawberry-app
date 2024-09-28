@@ -16,7 +16,7 @@ export default function Home() {
 
     const data = useSelector((state) => state.Reducers.restaurant_data)
     const session_id = useSelector((state) => state.Reducers.session_id)
-
+    console.log(data)
     React.useEffect(() => {
         dispatch(
             storeQRData(
@@ -33,7 +33,7 @@ export default function Home() {
             {/* Section 1 */}
             <div
                 style={{
-                    backgroundImage: `url(${data?.resturant_images?.HERO[0]})`
+                    backgroundImage: `url(${data?.restaurant_images?.HERO[0]})`
                 }}
                 className={`w-full h-[100vh]`}
             >
@@ -75,7 +75,7 @@ export default function Home() {
             {/* Section 2 */}
             <div
                 style={{
-                    backgroundImage: `url(${data?.resturant_images?.HERO1[0]})`,
+                    backgroundImage: `url(${data?.restaurant_images?.HERO1[0]})`,
                     backgroundSize: 'cover'
                 }}
                 className=" w-full h-[100vh] bg-red-200 object-contain flex flex-col justify-center items-center"
@@ -95,7 +95,7 @@ export default function Home() {
                     restaurant Images
                 </h1>
                 <div className="grid grid-cols-2 gap-y-2 w-full sm:grid-cols-3 sm:gap-y-4">
-                    {data?.resturant_images?.SLIDER.map((image, index) => (
+                    {data?.restaurant_images?.SLIDER.map((image, index) => (
                         <div
                             key={index}
                             className={`relative ${

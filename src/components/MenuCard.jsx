@@ -28,7 +28,7 @@ export default function MenuCard({ item }) {
             <img
                 alt="alt"
                 src={item?.image}
-                className="w-[30%] h-[100px] rounded-lg mb-2"
+                className="w-[30%] h-[100px] object-cover rounded-lg mb-2"
             />
             <button
                 onClick={() => {

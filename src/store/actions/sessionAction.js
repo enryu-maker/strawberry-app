@@ -64,3 +64,22 @@ export const createOrder = (data, navigate, setLoading) => {
             })
     }
 }
+
+export const getCustum = (id, setLoading, setData) => {
+    setLoading(true)
+    return async (dispatch) => {
+        await axios
+            .get(baseURL + '/get-item-customizations/', {
+                params: {
+                    menu_item_id: id
+                }
+            })
+            .then((res) => {
+                setLoading(false)
+            })
+            .catch((err) => {
+                console.log(err)
+                setLoading(false)
+            })
+    }
+}
