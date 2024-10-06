@@ -49,7 +49,7 @@ export default function SideNav({ isOpen, setIsopen }) {
                                 <img
                                     src={data?.image}
                                     alt="icon"
-                                    className="h-[100px] w-[100px] rounded-full relative shadow-md self-center"
+                                    className="h-[100px] w-[100px] rounded-full relative  object-contain shadow-md self-center"
                                 />
                                 <p className="text-base self-center uppercase text-black font-SUSE font-semibold">
                                     {data?.name}

@@ -65,7 +65,7 @@ export default function Menu() {
                                     'bg-transparent border-b-2  border-primary shadow-none rounded-none'
                             }}
                         >
-                            {menu.map(({ label, value }) => (
+                            {menu?.map(({ label, value }) => (
                                 <Tab
                                     className={
                                         activeTab === value
@@ -90,13 +90,13 @@ export default function Menu() {
                             }}
                             className="pb-[70px]"
                         >
-                            {menu.map(({ value, data }) => (
+                            {menu?.map(({ value, data }) => (
                                 <TabPanel
                                     className="text-gray-800 font-SUSE"
                                     key={value}
                                     value={value}
                                 >
-                                    {data.map((item, index) => (
+                                    {data?.map((item, index) => (
                                         <div key={index} className="py-2">
                                             <h1 className="font-bold text-2xl pb-2 text-primary">
                                                 {item?.category}

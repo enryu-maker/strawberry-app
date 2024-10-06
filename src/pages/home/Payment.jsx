@@ -11,7 +11,6 @@ export default function Payment() {
     const dispatch = useDispatch()
     const [loading, setLoading] = React.useState(true)
     const [loading1, setLoading1] = React.useState(false)
-
     const [connected, setConnected] = React.useState(false)
     const tid = useSelector((state) => state.Reducers.table_id)
     const cart = useSelector((state) => state.Reducers.cart)

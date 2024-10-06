@@ -16,7 +16,6 @@ export default function Home() {
 
     const data = useSelector((state) => state.Reducers.restaurant_data)
     const session_id = useSelector((state) => state.Reducers.session_id)
-    console.log(data)
     React.useEffect(() => {
         dispatch(
             storeQRData(
@@ -55,8 +54,7 @@ export default function Home() {
                         <button
                             onClick={() => {
                                 navigate(
-                                    `/menu/?restaurant_id=${
-                                        location.pathname.split('/')[2]
+                                    `/menu/?restaurant_id=${location.pathname.split('/')[2]
                                     }&restaurant_name=${data?.name}`
                                 )
                             }}
@@ -98,9 +96,8 @@ export default function Home() {
                     {data?.restaurant_images?.SLIDER.map((image, index) => (
                         <div
                             key={index}
-                            className={`relative ${
-                                index % 5 === 0 ? 'col-span-2 row-span-2' : ''
-                            } mx-2`}
+                            className={`relative ${index % 5 === 0 ? 'col-span-2 row-span-2' : ''
+                                } mx-2`}
                         >
                             <img
                                 alt="icon"

@@ -7,7 +7,6 @@ import CartCard from '../../components/CartCard'
 export default function Order() {
     const navigate = useNavigate()
     const cart = useSelector((state) => state.Reducers.cart)
-    console.log(cart)
     return (
         <div className="bg-white w-full h-[100vh] font-SUSE">
             <div className="flex justify-between top-0 sticky z-50  px-5 py-5 h-[10vh] items-center w-full">

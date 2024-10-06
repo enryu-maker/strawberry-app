@@ -24,7 +24,7 @@ export default function ProductInfo() {
                 <img
                     alt="alt"
                     src={state?.image}
-                    className="h-[150px] w-[150px] "
+                    className="h-[150px] w-[150px] rounded-full object-cover "
                 />
                 <div className="w-[88%] flex flex-col items-start space-y-3 justify-center">
                     <div className="w-full flex items-center justify-between">
