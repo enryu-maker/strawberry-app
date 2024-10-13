@@ -33,7 +33,8 @@ export default function Home() {
             {/* Section 1 */}
             <div
                 style={{
-                    backgroundImage: `url(${data?.restaurant_images?.HERO[0]})`
+                    backgroundImage: `url(${data?.restaurant_images?.HERO[0]})`,
+                    backgroundSize: 'cover'
                 }}
                 className={`w-full h-[100vh]`}
             >

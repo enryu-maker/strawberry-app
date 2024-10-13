@@ -61,7 +61,7 @@ export default function Payment() {
                 <div className="flex justify-center flex-col space-y-4 items-center">
                     <button
                         onClick={() => {
-                            // logGoogleUser()
+                            navigate('/paynow')
                         }}
                         className=" border-[1px] w-[92%] self-center  rounded-lg bg-white px-2 py-4 border-black flex justify-center items-center space-x-4"
                     >

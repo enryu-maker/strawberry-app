@@ -19,8 +19,14 @@ export default function MenuCard({ item }) {
                     {item?.name}
                 </h2>
                 <p className="text-gray-500 text-sm text-start">
-                    {item?.description}
+                    {item?.description?.length > 100
+                        ? `${item.description.slice(
+                              0,
+                              item.description.lastIndexOf(' ', 45)
+                          )}…`
+                        : item.description}
                 </p>
+
                 <h2 className=" font-bold text-lg text-primary">
                     € {item?.price}
                 </h2>
@@ -28,7 +34,7 @@ export default function MenuCard({ item }) {
             <img
                 alt="alt"
                 src={item?.image}
-                className="w-[30%] h-[100px] object-cover rounded-lg mb-2"
+                className="w-[100px] h-[100px] object-cover rounded-full mb-2"
             />
             <button
                 onClick={() => {

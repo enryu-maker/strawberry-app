@@ -24,12 +24,12 @@ export default function ProductInfo() {
                 <img
                     alt="alt"
                     src={state?.image}
-                    className="h-[150px] w-[150px] "
+                    className="h-[150px] w-[150px] object-cover rounded-full "
                 />
                 <div className="w-[88%] flex flex-col items-start space-y-3 justify-center">
                     <div className="w-full flex items-center justify-between">
                         <h1 className="text-3xl font-bold text-white">
-                            {state.name}
+                            {state?.name}
                         </h1>
                         <h1 className="text-3xl font-bold text-white">
                             € {state.price}

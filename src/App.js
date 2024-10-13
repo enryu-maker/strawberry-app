@@ -8,6 +8,7 @@ import ProductInfo from './pages/home/ProductInfo'
 import Order from './pages/home/Order'
 import Payment from './pages/home/Payment'
 import Success from './pages/home/modals/Success'
+import Paynow from './pages/PaymentScreens/Paynow'
 
 export default function App() {
     return (
@@ -20,6 +21,7 @@ export default function App() {
             <Route path="/success" element={<Success />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/paynow" element={<Paynow />} />
         </Routes>
     )
 }
