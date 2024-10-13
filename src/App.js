@@ -7,8 +7,10 @@ import Register from './pages/auth/Register'
 import ProductInfo from './pages/home/ProductInfo'
 import Order from './pages/home/Order'
 import Payment from './pages/home/Payment'
-// import Payment from './pages/home/PaymentMethod'
+import Tip from './pages/home/Tip'
 import Success from './pages/home/modals/Success'
+import PaymentMethod from './pages/home/PaymentMethod'
+import ItemBill from './pages/payment/ItemBill'
 
 export default function App() {
     return (
@@ -19,7 +21,7 @@ export default function App() {
             <Route path="/order-details" element={<Order />} />
             <Route path="/payment" element={<Payment />} />
             <Route path="/payment-method" element={<PaymentMethod />} />
-            <Route path="/items" element={<Items />} />
+            <Route path="/items-bill" element={<ItemBill />} />
             <Route path="/tip" element={<Tip />} />
             <Route path="/success" element={<Success />} />
             <Route path="/login" element={<Login />} />

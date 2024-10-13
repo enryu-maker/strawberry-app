@@ -69,7 +69,7 @@ export default function BottomOptions({ isOpen, setIsopen }) {
                         <motion.div
                             ref={ref}
                             key="sidebar"
-                            className="bottom-0 min-h-[250px] max-h-[300px] w-screen mb-0 p-4 bg-gray-100 
+                            className="bottom-0 min-h-[300px] max-h-[350px] w-screen mb-0 p-4 bg-gray-100 
           rounded-t-3xl fixed z-50"
                             initial={{ opacity: 0, y: 100 }}
                             animate={{ y: 0, opacity: 1 }}
@@ -110,7 +110,7 @@ export default function BottomOptions({ isOpen, setIsopen }) {
                                 </div>
                                 <div className="w-full h-full">
                                     <CustomButton2
-                                        text={'Item Wise Split'}
+                                        text={'My Items Only'}
                                         style={
                                             'scale-90 -mb-0 bg-transparent border-2 border-primary'
                                         }

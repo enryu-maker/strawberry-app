@@ -11,7 +11,7 @@ export default function CustomButton({
         <button
             disabled={disabled}
             onClick={onClick}
-            className={`bg-primary text-white w-full flex justify-center items-center  md:w-1/2 py-4 font-SUSE font-medium text-lg rounded-full  mb-6 md:mb-0 ${style} `}
+            className={`bg-primary text-white w-full flex justify-center items-center  md:w-1/2 py-4 font-medium text-lg rounded-full font-SUSE   mb-6 md:mb-0 ${style} `}
         >
             {disabled ? (
                 <RotatingLines

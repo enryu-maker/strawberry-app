@@ -119,7 +119,7 @@ export default function Payment() {
                             </>
                         )}
                     </button>
-                    <p className=" font-SUSE">
+                    <p className=" font-SUSE text-center">
                         By continuing, I agree to User Terms and Privacy Policy
                     </p>
                     <p className=" font-SUSE">

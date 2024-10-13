@@ -1,21 +1,19 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { updateQty } from '../store/actions/cartActions'
+import { addcustom, addnotes, updateQty } from '../store/actions/cartActions'
 import { getCustum } from '../store/actions/sessionAction'
-import CustomCard from './CustomCard'
-import { RotatingLines } from 'react-loader-spinner'
+
 export default function CartCard({ item }) {
     const [count, setCount] = React.useState(item?.qty)
     const [count1, setCount1] = React.useState(0)
     const [show, setShow] = React.useState(false)
     const [loading, setLoading] = React.useState(false)
-
+    const [data, setData] = React.useState([])
+    const [notes, setNotes] = React.useState("")
     const dispatch = useDispatch()
-    const cart = useSelector((state) => state.Reducers.cart)
-    console.log(cart)
     React.useEffect(() => {
         dispatch(getCustum(item?.id, setLoading, setData))
-    }, [])
+    }, [dispatch, item?.id])
     return (
         <>
             {show ? (
@@ -46,10 +44,60 @@ export default function CartCard({ item }) {
 
                         <div class="my-6">
                             <p class="text-gray-600 text-sm font-semibold  leading-relaxed mt-2">
+                                Customize Item
+                            </p>
+                            <div class="flex flex-wrap justify-between items-center">
+                                {
+                                    data.map((custom, index) => (
+                                        <div key={index} class="w-full md:w-1/2 ">
+                                            <div class="flex items-center justify-between py-2 border-b border-gray-300">
+                                                <p class="text-gray-800 text-sm font-bold  leading-relaxed">
+                                                    {custom?.name}
+                                                </p>
+                                                <p class="text-gray-600 text-sm font-semibold  leading-relaxed">
+                                                    € {custom?.price}
+                                                </p>
+                                                <div className="w-[30%] flex justify-center items-start space-x-3 ">
+                                                    <button
+                                                        onClick={() => {
+                                                            if (count1 > 0) {
+                                                                setCount1(count1 - 1)
+                                                                dispatch(addcustom(item?.id, custom?.id, count1 - 1))
+                                                            } else {
+                                                                dispatch({
+                                                                    type: 'DELETE_CUSTOM',
+                                                                    payload: custom?.id
+                                                                })
+                                                            }
+                                                        }}
+                                                        className="h-[25px] w-[25px] bg-gray-300 font-bold rounded-full flex justify-center items-center"
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <p className="text-md font-bold text-gray-800">{count1}</p>
+                                                    <button
+                                                        onClick={() => {
+                                                            setCount1(count1 + 1)
+                                                            dispatch(addcustom(item?.id, custom?.id, count1 + 1))
+                                                        }}
+                                                        className="h-[25px] w-[25px] bg-primary font-bold text-white rounded-full flex justify-center items-center"
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                            <p class="text-gray-600 text-sm font-semibold  leading-relaxed mt-2">
                                 Notes
                             </p>
                             <textarea
                                 type="text"
+                                onChange={(e) => {
+                                    setNotes(e.target.value)
+                                }}
                                 multiple
                                 className="h-[80px] border-[1px] text-start p-2 w-full outline-none rounded-md border-primary"
                             />
@@ -90,7 +138,7 @@ export default function CartCard({ item }) {
                             {item?.name}
                         </h2>
                         <p className="text-md font-bold text-gray-500">
-                            € {item?.price * count + extra}
+                            € {item?.price * count}
                         </p>
                         {item?.is_customizable ? (
                             <button
