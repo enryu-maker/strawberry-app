@@ -19,12 +19,7 @@ export default function MenuCard({ item }) {
                     {item?.name}
                 </h2>
                 <p className="text-gray-500 text-sm text-start">
-                    {item?.description?.length > 100
-                        ? `${item.description.slice(
-                              0,
-                              item.description.lastIndexOf(' ', 45)
-                          )}…`
-                        : item.description}
+                    {item?.description}
                 </p>
 
                 <h2 className=" font-bold text-lg text-primary">
@@ -42,7 +37,9 @@ export default function MenuCard({ item }) {
                         type: 'ADD_TO_CART',
                         payload: {
                             ...item,
-                            qty: 1
+                            qty: 1,
+                            customizations: {},
+                            notes: ""
                         }
                     })
                 }}

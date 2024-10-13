@@ -78,6 +78,7 @@ export const getCustum = (id, setLoading, setData) => {
                 console.log(res.data)
                 setData(res.data)
                 setLoading(false)
+                setData(res?.data)
             })
             .catch((err) => {
                 console.log(err)

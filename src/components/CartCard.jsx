@@ -1,15 +1,15 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { updateQty } from '../store/actions/cartActions'
 import { getCustum } from '../store/actions/sessionAction'
 import CustomCard from './CustomCard'
 import { RotatingLines } from 'react-loader-spinner'
 export default function CartCard({ item }) {
     const [count, setCount] = React.useState(item?.qty)
+    const [count1, setCount1] = React.useState(0)
     const [show, setShow] = React.useState(false)
     const [loading, setLoading] = React.useState(false)
-    const [data, setData] = React.useState([])
-    const [extra, setExtra] = React.useState(0)
+
     const dispatch = useDispatch()
     const cart = useSelector((state) => state.Reducers.cart)
     console.log(cart)
@@ -44,43 +44,15 @@ export default function CartCard({ item }) {
                             </svg>
                         </div>
 
-                        <div class="my-6 space-y-2">
-                            {loading ? (
-                                <div className="flex justify-center flex-col space-y-4 items-center">
-                                    <RotatingLines
-                                        visible={true}
-                                        height="30"
-                                        width="20"
-                                        strokeColor="#e85050"
-                                        strokeWidth="5"
-                                        animationDuration="1"
-                                        ariaLabel="rotating-lines-loading"
-                                        wrapperStyle={{}}
-                                        wrapperClass=""
-                                    />
-                                </div>
-                            ) : (
-                                <>
-                                    <p class="text-gray-600 text-sm py-2 font-semibold  leading-relaxed">
-                                        Ingredient
-                                    </p>
-                                    {data.map((item, index) => (
-                                        <CustomCard
-                                            key={index}
-                                            item={item}
-                                            setExtra={setExtra}
-                                        />
-                                    ))}
-                                    <p class="text-gray-600 text-sm py-2 font-semibold  leading-relaxed">
-                                        Notes
-                                    </p>
-                                    <textarea
-                                        type="text"
-                                        multiple
-                                        className="h-[80px] border-[1px] text-start p-2 w-full outline-none rounded-md border-primary"
-                                    />
-                                </>
-                            )}
+                        <div class="my-6">
+                            <p class="text-gray-600 text-sm font-semibold  leading-relaxed mt-2">
+                                Notes
+                            </p>
+                            <textarea
+                                type="text"
+                                multiple
+                                className="h-[80px] border-[1px] text-start p-2 w-full outline-none rounded-md border-primary"
+                            />
                         </div>
 
                         <div class="border-t border-gray-300 pt-6 flex justify-end gap-4">
@@ -94,6 +66,9 @@ export default function CartCard({ item }) {
                                 Close
                             </button>
                             <button
+                                onClick={() => {
+                                    dispatch(addnotes(item?.id, notes))
+                                }}
                                 type="button"
                                 class="px-4 py-2 rounded-lg text-white text-sm border-none outline-none tracking-wide bg-primary"
                             >

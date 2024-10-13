@@ -11,7 +11,6 @@ export default function Payment() {
     const dispatch = useDispatch()
     const [loading, setLoading] = React.useState(true)
     const [loading1, setLoading1] = React.useState(false)
-
     const [connected, setConnected] = React.useState(false)
     const tid = useSelector((state) => state.Reducers.table_id)
     const cart = useSelector((state) => state.Reducers.cart)
@@ -61,7 +60,7 @@ export default function Payment() {
                 <div className="flex justify-center flex-col space-y-4 items-center">
                     <button
                         onClick={() => {
-                            navigate('/paynow')
+                            // logGoogleUser()
                         }}
                         className=" border-[1px] w-[92%] self-center  rounded-lg bg-white px-2 py-4 border-black flex justify-center items-center space-x-4"
                     >

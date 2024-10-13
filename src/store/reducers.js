@@ -35,9 +35,9 @@ export default (state = initialState, action) => {
                         (item) =>
                             item.id === action.payload.id
                                 ? {
-                                      ...item,
-                                      qty: item.qty + action.payload.qty
-                                  } // If ID matches, update qty
+                                    ...item,
+                                    qty: item.qty + action.payload.qty
+                                } // If ID matches, update qty
                                 : item // If ID doesn't match, return the item unchanged
                     )
                     .concat(
@@ -54,6 +54,35 @@ export default (state = initialState, action) => {
                         ? { ...item, qty: action.payload.qty } // Update to the new quantity
                         : item
                 )
+            }
+        case 'ADD_NOTES':
+            return {
+                ...state,
+                cart: state.cart.map((item) =>
+                    item.id === action.payload.id
+                        ? { ...item, notes: action.payload.notes }
+                        : item
+                )
+            }
+        case 'CUSTOM':
+            return {
+                ...state,
+                cart: state.cart.map((item) =>
+                    item.id === action.payload.id
+                        ? {
+                            ...item,
+                            customizations: {
+                                ...item.customizations, // Keep existing customizations
+                                [action.payload.customizationId]: action.payload.customizationQty // Add or update customization
+                            }
+                        }
+                        : item
+                )
+            }
+        case 'DELETE_CUSTOM':
+            return {
+                ...state,
+                cart: state.cart.filter((item) => item.id !== action.payload) // Remove the item with the matching id
             }
         case 'DELETE_ITEM':
             return {

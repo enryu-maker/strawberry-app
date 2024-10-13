@@ -7,8 +7,8 @@ import Register from './pages/auth/Register'
 import ProductInfo from './pages/home/ProductInfo'
 import Order from './pages/home/Order'
 import Payment from './pages/home/Payment'
+// import Payment from './pages/home/PaymentMethod'
 import Success from './pages/home/modals/Success'
-import Paynow from './pages/PaymentScreens/Paynow'
 
 export default function App() {
     return (
@@ -18,10 +18,12 @@ export default function App() {
             <Route path="/menu/product-info" element={<ProductInfo />} />
             <Route path="/order-details" element={<Order />} />
             <Route path="/payment" element={<Payment />} />
+            <Route path="/payment-method" element={<PaymentMethod />} />
+            <Route path="/items" element={<Items />} />
+            <Route path="/tip" element={<Tip />} />
             <Route path="/success" element={<Success />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/paynow" element={<Paynow />} />
         </Routes>
     )
 }
