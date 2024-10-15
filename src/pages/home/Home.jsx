@@ -71,7 +71,7 @@ export default function Home() {
                                         '/items-bill'
                                     )
                                 }}
-                                className=" border-primary border-2 lowercase bg-white  outline-none font-semibold  h-[40px] w-[40%] rounded-md text-2xl font-SUSE text-primary ">
+                                className=" border-primary border-2 lowercase bg-white  outline-none font-semibold  h-[40px] w-[40%] rounded-full text-2xl font-SUSE text-primary ">
                                 Pay bill
                             </button>
                         ) : null}

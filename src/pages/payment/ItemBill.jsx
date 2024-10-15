@@ -7,11 +7,35 @@ import SideNav from '../home/modals/SideNav'
 import CustomButton from '../../components/CustomButton'
 import BottomOptions from '../home/modals/BottomOptions'
 import { AiOutlineMenu, AiOutlineUser } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux'
+import { getMode, getOrder } from '../../store/actions/sessionAction'
 
 export default function ItemBill() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const session_id = useSelector(state => state.Reducers.session_id)
+    const table_id = useSelector(state => state.Reducers.table_id)
+    const user_id = useSelector(state => state.Reducers.user_id)
+
+
+
     const [show, setShow] = React.useState(false)
+    const [loading, setLoading] = React.useState(false)
+    const [data, setData] = React.useState([])
+    const [mode, setMode] = React.useState([])
     const [bottomshow, setBottomshow] = React.useState(false)
+
+    function getTotal(data) {
+        return data.reduce((total, item) => {
+            return total + (item.order_total || 0); // Add the price if it exists, otherwise add 0
+        }, 0); // Start with a total of 0
+    }
+
+    React.useEffect(() => {
+        dispatch(getOrder(session_id, setLoading, setData))
+        dispatch(getMode(setMode, setLoading, session_id, user_id))
+
+    }, [dispatch])
     return (
         <div className="h-screen overflow-x-hidden">
             <motion.div
@@ -53,33 +77,40 @@ export default function ItemBill() {
                     <div className="flex justify-between w-full items-start">
                         <div className="space-y-1">
                             <p className=" font-Poppins text-lg font-semibold">
-                                Pay Your Table Bill
+                                Total Bill
                             </p>
                             <p className=" font-Poppins text-xs text-gray-400">
-                                Table no 2369
+                                Table no. {table_id}
                             </p>
                         </div>
                         <p className=" font-Poppins text-lg font-semibold">
-                            $122.1
+                            € {getTotal(data)}
                         </p>
                     </div>
                 </div>
                 <hr className="w-full"></hr>
                 <div
-                    className="flex flex-col bg-white
-        gap-5 items-start px-5 py-4 justify- mt-5 h-full w-full overflow-y-auto font-SUSE"
+                    className="flex flex-col bg-white gap-5 items-start px-5 py-4 justify- mt-5 h-full w-full overflow-y-auto font-SUSE"
                 >
-                    <div className="flex flex-row justify-between w-full h-fit text-md">
-                        <div className="flex flex-row justify-evenly items-start align-middle space-x-5 max-w-screen">
-                            <p className="bg-gray-100 p-1 px-2 rounded-md text-xs">
-                                1
-                            </p>
-                            <p>Items</p>
-                        </div>
-                        <div>
-                            <p>$69</p>
-                        </div>
-                    </div>
+                    {
+                        data?.map((item, index) => (
+                            <div className="flex flex-row justify-between w-full h-fit text-md">
+                                <div className="flex flex-row justify-evenly items-start align-middle space-x-5 max-w-screen">
+                                    <p className="bg-gray-100 p-1 px-2 rounded-md text-xs">
+                                        {index + 1}
+                                    </p>
+                                    <div>
+                                        <p className=' font-SUSE text-sm'> {item?.name}</p>
+                                        <p className=' font-SUSE text-xs'> Qty. {item?.quantity}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p> € {item?.order_total}</p>
+                                </div>
+                            </div>
+                        ))
+                    }
+
                 </div>
                 <div className="w-full min-h-[200] h-fit p-4 flex flex-col justify-end items-end align-bottom pb-10 font-SUSE">
                     <CustomButton
@@ -94,6 +125,7 @@ export default function ItemBill() {
                     <BottomOptions
                         isOpen={bottomshow}
                         setIsopen={setBottomshow}
+                        paymentMethods={mode}
                     />
                 ) : null}
             </motion.div>

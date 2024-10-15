@@ -86,3 +86,68 @@ export const getCustum = (id, setLoading, setData) => {
             })
     }
 }
+
+
+export const getOrder = (id, setLoading, setData) => {
+    setLoading(true)
+    return async (dispatch) => {
+        await axios
+            .get(baseURL + `/get-orders/`, {
+                params: {
+                    order_session: id
+                }
+            })
+            .then((res) => {
+                setLoading(false)
+                setData(res?.data)
+            })
+            .catch((err) => {
+                console.log(err)
+                setLoading(false)
+            })
+    }
+}
+
+export const createPayment = (order_id, userid, payment_mode, amount, setLoading) => {
+    setLoading(true)
+    return async (dispatch) => {
+        await axios
+            .post(baseURL + `/payments/create/`, {
+                "order_session": order_id,
+                "order_session_user": userid,
+                "payment_mode": payment_mode,
+                "amount": amount
+            })
+            .then((res) => {
+                setLoading(false)
+                console.log(res.data)
+                // setData(res?.data)
+            })
+            .catch((err) => {
+                console.log(err)
+                setLoading(false)
+            })
+    }
+}
+
+export const getMode = (setData, setLoading, order_session, order_session_user) => {
+    setLoading(true)
+    return async (dispatch) => {
+        await axios
+            .get(baseURL + '/payments/modes/', {
+                params: {
+                    order_session: order_session,
+                    order_session_user: order_session_user
+                }
+            })
+            .then((res) => {
+                setLoading(false)
+                console.log(res.data)
+                setData(res?.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            }
+            )
+    }
+}

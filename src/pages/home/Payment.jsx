@@ -18,14 +18,16 @@ export default function Payment() {
     const user_id = useSelector((state) => state.Reducers.user_id)
 
     function getData() {
-        const data = {}
-        cart.forEach((item) => {
-            // Use forEach instead of map
-            var id = String(item?.id)
-            var qty = item?.qty
-            data[id] = qty
-        })
-        return JSON.stringify(data) // Return the data as a JSON string
+        let result = {};
+
+        cart.forEach((item, index) => {
+            result[index + 1] = {
+                quantity: item.qty,
+                customizations: item.customizations || {},
+                notes: item.notes || ""
+            };
+        });
+        return JSON.stringify(result) // Return the data as a JSON string
     }
 
     React.useEffect(() => {
@@ -75,11 +77,11 @@ export default function Payment() {
                     </button>
                     <button
                         onClick={() => {
-                            // console.log({
-                            //     session_id: session_id,
-                            //     session_user_id: user_id,
-                            //     items_data: getData()
-                            // })
+                            console.log({
+                                session_id: session_id,
+                                session_user_id: user_id,
+                                items_data: getData()
+                            })
                             dispatch(
                                 createOrder(
                                     {
