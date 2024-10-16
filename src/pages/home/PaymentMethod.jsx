@@ -5,11 +5,16 @@ import { image } from '../../assets/image'
 import { Popover } from 'react-tiny-popover'
 import { CiCircleInfo } from 'react-icons/ci'
 import CustomButton from '../../components/CustomButton'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Feedback from './modals/Feedback'
+import { useDispatch } from 'react-redux'
+import { createPayment } from '../../store/actions/sessionAction'
+
 
 function PaymentMethod() {
+    const { state } = useLocation()
+    console.log(state)
     const data = [
         {
             name: 'Mastercard',
@@ -31,16 +36,26 @@ function PaymentMethod() {
         }
     ]
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
     const [selectedPayment, setSelectedPayment] = useState('')
     const [showfeedback, setshowfeedback] = useState(false)
+    const [loading, setLoading] = useState(false)
+
     const [popoverState, setPopoverState] = useState({
         isOpen: false,
         target: null,
         content: ''
     })
     const handlepaymentclick = () => {
-        console.log(selectedPayment)
-        setshowfeedback(true)
+        dispatch(createPayment(
+            state?.session_id,
+            state?.user_id,
+            state?.method,
+            state?.amount + state?.tip + state?.amount * 0.01,
+            setLoading,
+            navigate
+        ))
     }
     const handleInfoClick = (event, content) => {
         setPopoverState({
@@ -98,11 +113,10 @@ function PaymentMethod() {
                         {data.map((data, index) => (
                             <label
                                 key={index}
-                                className={`flex border-[1px] gap-4 rounded-xl p-2 px-4 py-3 cursor-pointer ${
-                                    selectedPayment === data.name
-                                        ? 'border-blue-500'
-                                        : ''
-                                }`}
+                                className={`flex border-[1px] gap-4 rounded-xl p-2 px-4 py-3 cursor-pointer ${selectedPayment === data.name
+                                    ? 'border-blue-500'
+                                    : ''
+                                    }`}
                             >
                                 <input
                                     id={index}
@@ -144,7 +158,7 @@ function PaymentMethod() {
                                         isOpen={
                                             popoverState.isOpen &&
                                             popoverState.content ===
-                                                'Digital Fee'
+                                            'Digital Fee'
                                         }
                                         positions={['top', 'bottom']}
                                         padding={10}
@@ -172,43 +186,13 @@ function PaymentMethod() {
                                         </span>
                                     </Popover>
                                 </p>
-                                <p className="flex items-center gap-2">
-                                    <Popover
-                                        isOpen={
-                                            popoverState.isOpen &&
-                                            popoverState.content === 'Taxes'
-                                        }
-                                        positions={['top', 'bottom']}
-                                        padding={10}
-                                        onClickOutside={closePopover}
-                                        content={
-                                            <div className="p-2 bg-gray-100 shadow-lg rounded ml-24 -mb-5 flex flex-col text-gray-400 text-sm">
-                                                <p>GST: 18%</p>
-                                                <p>SGST: 9%</p>
-                                                <p>CGST: 9%</p>
-                                            </div>
-                                        }
-                                        target={popoverState.target}
-                                    >
-                                        <span className="flex items-center gap-2">
-                                            Taxes
-                                            <CiCircleInfo
-                                                className="text-xl cursor-pointer"
-                                                onClick={(e) =>
-                                                    handleInfoClick(e, 'Taxes')
-                                                }
-                                            />
-                                        </span>
-                                    </Popover>
-                                </p>
                                 <p className="text-black font-medium">Total</p>
                             </div>
                             <div className="space-y-2 w-full flex flex-col justify-end items-end text-black font-medium">
-                                <p>$23423</p>
-                                <p>$324</p>
-                                <p>$324234</p>
-                                <p>$324</p>
-                                <p>$324324</p>
+                                <p>€ {state?.amount}</p>
+                                <p>€ {state?.tip}</p>
+                                <p>€ {state?.amount * 0.01}</p>
+                                <p>€ {state?.amount + state?.tip + state?.amount * 0.01}</p>
                             </div>
                         </div>
                     </div>
@@ -242,6 +226,7 @@ function PaymentMethod() {
                         isOpen={showfeedback}
                         setIsopen={setshowfeedback}
                         payment={selectedPayment}
+                        data={state}
                     />
                 ) : null}
             </motion.div>

@@ -8,8 +8,7 @@ import { FaRegFaceLaughBeam } from 'react-icons/fa6'
 import CustomButton from '../../components/CustomButton'
 
 function Feedback() {
-    const location = useLocation()
-    const rating = location.state.rating
+    const { state } = useLocation()
     const navi = useNavigate()
     const handleclick = () => {
         setTimeout(() => {
@@ -27,7 +26,7 @@ function Feedback() {
             <div className="flex justify-center items-center h-screen w-full bg-gray-200 p-4 ">
                 <div className="w-full h-full justify-start pt-20 flex flex-col gap-5 items-center">
                     <Rating
-                        initialRating={rating}
+                        initialRating={state?.rating}
                         readonly
                         emptySymbol={
                             <IoIosStarOutline className="text-green-500" />

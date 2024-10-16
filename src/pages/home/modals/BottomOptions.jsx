@@ -4,26 +4,30 @@ import { image } from '../../../assets/image'
 import CustomButton from '../../../components/CustomButton'
 import { CustomButton2 } from '../../../components/CustomButton'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { createPayment } from '../../../store/actions/sessionAction'
 
 export default function BottomOptions({ isOpen, setIsopen, paymentMethods }) {
-    const navi = useNavigate()
-    const [billMethod, setBillMethod] = useState('') // State to track which option is selected
+    const navi = useNavigate();
+    const dispatch = useDispatch();
+    const [billMethod, setBillMethod] = useState(''); // Track which option is selected
+    const [loading, setLoading] = useState(false); // State to handle loading
 
-    // Extracting full method and split methods
+    const session_id = useSelector(state => state.Reducers.session_id);
+    const table_id = useSelector(state => state.Reducers.table_id);
+    const user_id = useSelector(state => state.Reducers.user_id);
+
+    // Extract full method and split methods
     const { full, ...splitMethods } = paymentMethods;
 
     // Check if Full payment is locked
     const isFullLocked = full.locked;
 
     // Filter split methods where locked is false
-    const availableSplitOptions = Object.values(splitMethods).filter(method => method.locked);
+    const availableSplitOptions = Object.values(splitMethods).filter(method => !method.locked);
 
     // Check if all split options are locked
     const allSplitOptionsLocked = availableSplitOptions.length === 0;
-
-    // Show either Full or Split options based on the locked status
-    const shouldShowFull = !isFullLocked && allSplitOptionsLocked;
-    const shouldShowSplit = !allSplitOptionsLocked && !isFullLocked;
 
     return (
         <AnimatePresence mode="wait">
@@ -63,18 +67,25 @@ export default function BottomOptions({ isOpen, setIsopen, paymentMethods }) {
                             {!billMethod && (
                                 <>
                                     {/* FULL Payment Option */}
-                                    {shouldShowFull && (
+                                    {!isFullLocked && (
                                         <div className="w-full h-full">
                                             <CustomButton
                                                 text="Full Payment"
                                                 style={'scale-90 -mb-0'}
-                                                onClick={() => navi('/tip')}
+                                                onClick={() => navi('/tip', {
+                                                    state: {
+                                                        method: paymentMethods["full"].type,
+                                                        amount: paymentMethods["full"].amount,
+                                                        session_id: session_id,
+                                                        user_id: user_id,
+                                                    }
+                                                })}
                                             />
                                         </div>
                                     )}
 
                                     {/* SPLIT Option */}
-                                    {shouldShowSplit && (
+                                    {availableSplitOptions.length > 0 && (
                                         <div className="w-full h-full">
                                             <CustomButton2
                                                 text="Split Bill"
@@ -96,7 +107,16 @@ export default function BottomOptions({ isOpen, setIsopen, paymentMethods }) {
                                                     <CustomButton2
                                                         text={method?.name}
                                                         style={'scale-90 -mb-0 bg-transparent border-2 border-primary'}
-                                                        onClick={() => navi('/tip')}
+                                                        onClick={() => {
+                                                            navi('/tip', {
+                                                                state: {
+                                                                    method: method.type,
+                                                                    amount: method.amount,
+                                                                    session_id: session_id,
+                                                                    user_id: user_id,
+                                                                }
+                                                            })
+                                                        }}
                                                     />
                                                 </div>
                                             ))
@@ -113,3 +133,4 @@ export default function BottomOptions({ isOpen, setIsopen, paymentMethods }) {
         </AnimatePresence>
     )
 }
+

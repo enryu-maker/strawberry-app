@@ -108,7 +108,7 @@ export const getOrder = (id, setLoading, setData) => {
     }
 }
 
-export const createPayment = (order_id, userid, payment_mode, amount, setLoading) => {
+export const createPayment = (order_id, userid, payment_mode, amount, setLoading, navigate) => {
     setLoading(true)
     return async (dispatch) => {
         await axios
@@ -120,7 +120,7 @@ export const createPayment = (order_id, userid, payment_mode, amount, setLoading
             })
             .then((res) => {
                 setLoading(false)
-                console.log(res.data)
+                navigate('/payment-done')
                 // setData(res?.data)
             })
             .catch((err) => {
@@ -149,5 +149,15 @@ export const getMode = (setData, setLoading, order_session, order_session_user) 
                 console.log(err)
             }
             )
+    }
+}
+
+export const endSession = () => {
+    return async (dispatch) => {
+        await localStorage.removeItem("session_id")
+        await localStorage.removeItem("user_id")
+        dispatch({
+            type: 'END_SESSION'
+        })
     }
 }

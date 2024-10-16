@@ -16,12 +16,11 @@ export default function Payment() {
     const cart = useSelector((state) => state.Reducers.cart)
     const session_id = useSelector((state) => state.Reducers.session_id)
     const user_id = useSelector((state) => state.Reducers.user_id)
-
     function getData() {
         let result = {};
 
         cart.forEach((item, index) => {
-            result[index + 1] = {
+            result[item?.id] = {
                 quantity: item.qty,
                 customizations: item.customizations || {},
                 notes: item.notes || ""

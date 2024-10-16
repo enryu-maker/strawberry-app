@@ -3,10 +3,12 @@ import { IoIosArrowBack } from 'react-icons/io'
 import { image } from '../../assets/image'
 import CustomButton from '../../components/CustomButton'
 import TipOptions from './modals/TipOptions'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 
 function Tip() {
+    const { state } = useLocation()
+    console.log(state)
     const [selectedTip, setSelectedTip] = useState(null)
     const [bottomshow, setBottomshow] = React.useState(false)
     const [tipamount, setTipamount] = React.useState('')
@@ -33,7 +35,7 @@ function Tip() {
     return (
         <AnimatePresence>
             <motion.div
-                className="w-screen h-full"
+                className="w-screen h-full font-SUSE"
                 initial={{ x: 100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ ease: 'easeIn', duration: 0.5 }}
@@ -89,22 +91,20 @@ function Tip() {
                                 className="flex flex-col items-center"
                                 onClick={() => {
                                     handleTipSelection(index)
-                                    handletipamount(tip.percentage)
+                                    handletipamount(Math.round(tip.percentage / 100 * state?.amount))
                                 }}
                             >
                                 <div
-                                    className={`w-24 h-24 rounded-xl flex flex-col text-center justify-center items-center  ${
-                                        selectedTip === index
-                                            ? 'bg-gray-800'
-                                            : 'bg-gray-100 '
-                                    }`}
+                                    className={`w-24 h-24 rounded-xl flex flex-col text-center justify-center items-center  ${selectedTip === index
+                                        ? 'bg-primary'
+                                        : 'bg-gray-100 '
+                                        }`}
                                 >
                                     <p
-                                        className={`font-light text-xs ${
-                                            selectedTip === index
-                                                ? 'text-white'
-                                                : 'text-black '
-                                        }`}
+                                        className={`font-bold text-md ${selectedTip === index
+                                            ? 'text-white'
+                                            : 'text-black '
+                                            }`}
                                     >
                                         {tip.percentage}%
                                     </p>
@@ -145,7 +145,8 @@ function Tip() {
                         isOpen={bottomshow}
                         setIsopen={setBottomshow}
                         tip={tipamount}
-                        total={'6969'}
+                        total={state?.amount}
+                        data={state}
                     />
                 ) : null}
             </motion.div>

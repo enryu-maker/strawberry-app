@@ -16,6 +16,8 @@ export default function Home() {
 
     const data = useSelector((state) => state.Reducers.restaurant_data)
     const session_id = useSelector((state) => state.Reducers.session_id)
+    const user_id = useSelector((state) => state.Reducers.user_id)
+
     React.useEffect(() => {
         dispatch(
             storeQRData(
@@ -64,7 +66,7 @@ export default function Home() {
                             View Menu
                         </button>
 
-                        {session_id !== null && session_id !== undefined ? (
+                        {session_id !== null && user_id !== null ? (
                             <button
                                 onClick={() => {
                                     navigate(

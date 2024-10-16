@@ -7,7 +7,6 @@ export default function Success() {
     const { state } = useLocation()
     const tid = useSelector((state) => state.Reducers.table_id)
     const rid = useSelector((state) => state.Reducers.restaurant_id)
-
     return (
         <div className="w-screen h-screen flex justify-center flex-col space-y-4 items-center font-SUSE">
             <img src={image?.success} className="h-[200px] w-[200px]" alt="" />

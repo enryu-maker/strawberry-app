@@ -95,6 +95,12 @@ export default (state = initialState, action) => {
                 session_id: action.payload.order_session,
                 user_id: action.payload.session_user
             }
+        case 'END_SESSION':
+            return {
+                ...state,
+                session_id: null,
+                user_id: null
+            }
         default:
             return state
     }

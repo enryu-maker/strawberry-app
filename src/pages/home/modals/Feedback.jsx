@@ -6,33 +6,27 @@ import Rating from 'react-rating'
 import { IoIosStarOutline } from 'react-icons/io'
 import { IoIosStar } from 'react-icons/io'
 import { image } from '../../../assets/image'
+import { useSelector } from 'react-redux'
 
 export let stars = ''
 
-export default function Feedback({ isOpen, setIsopen, payment }) {
+export default function Feedback({ isOpen, setIsopen, }) {
     const ref = useRef(null)
     const [rating, setRating] = useState(Number) // Initial value
     const [error, setError] = useState(false) // Initial value
-    // console.log(payment)
+    const restaurant_data = useSelector((state) => state.Reducers.restaurant_data)
+
     const navigate = useNavigate()
-    // const handlerating = (rate) => {
-    //   console.log(rating);
-    //   setRating(rate);
-    //   if (payment == "") {
-    //     setError(true);
-    //   } else {
-    //     setTimeout(() => {
-    //       if (rating != "") navigate(`/feedback/${rating}`);
-    //     }, 1000);
-    //   }
-    // };
+
 
     const handlerating = (rate) => {
         setRating(rate)
         // console.log(rating)
         setTimeout(() => {
             navigate(`/feedback`, {
-                state: { rating: rate }
+                state: {
+                    rating: rate
+                }
             })
         }, 500)
     }
@@ -69,14 +63,15 @@ export default function Feedback({ isOpen, setIsopen, payment }) {
                     </div>
                     <div className="flex fex-col justify-center items-center h-full w-full">
                         <div className="h-fit w-fit gap-2 flex flex-col justify-center items-center">
-                            <div className="rounded-full bg-amber-100 shadow-md p-5 text-center">
-                                <p className="text-2xl font-base">NERD</p>
-                                <p className="text-xl font-light">TOWN</p>
-                            </div>
+                            <img
+                                src={restaurant_data?.image}
+                                alt="icon"
+                                className="h-[100px] w-[100px] bg-amber-500 rounded-full relative  object-contain shadow-md self-center"
+                            />
                             <div className="w-full h-full">
                                 <p className="text-pretty text-center font-medium">
                                     Share your experience <br />
-                                    at Uptown (us)
+                                    at {restaurant_data?.name}
                                 </p>
                             </div>
                             <div className="w-full h-full flex justify-center">

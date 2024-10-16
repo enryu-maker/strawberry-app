@@ -4,12 +4,15 @@ import { image } from '../../../assets/image'
 import { useRef } from 'react'
 import CustomButton from '../../../components/CustomButton'
 import { useNavigate } from 'react-router-dom'
-export default function TipOptions({ isOpen, setIsopen, tip, total }) {
+export default function TipOptions({ isOpen, setIsopen, tip, total, data }) {
     const ref = useRef(null)
     const navigate = useNavigate()
     const handlenavigate = () => {
         if (tip != '') {
-            navigate('/payment-method')
+            data['tip'] = tip
+            navigate('/payment-method', {
+                state: data
+            })
         }
     }
     return (
