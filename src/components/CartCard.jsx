@@ -116,6 +116,7 @@ export default function CartCard({ item }) {
                             <button
                                 onClick={() => {
                                     dispatch(addnotes(item?.id, notes))
+                                    setShow(!show)
                                 }}
                                 type="button"
                                 class="px-4 py-2 rounded-lg text-white text-sm border-none outline-none tracking-wide bg-primary"
