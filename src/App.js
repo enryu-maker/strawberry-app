@@ -13,6 +13,7 @@ import PaymentMethod from './pages/home/PaymentMethod'
 import ItemBill from './pages/payment/ItemBill'
 import Feedback from './pages/home/Feedback'
 import PaymentDone from './pages/home/modals/PayementDone'
+import EmptyCart from './pages/home/EmptyCart'
 
 export default function App() {
     return (
@@ -30,8 +31,7 @@ export default function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/payment-done" element={<PaymentDone />} />
-
-
+            <Route path="/empty-cart" element={<EmptyCart />} />
         </Routes>
     )
 }

@@ -66,17 +66,17 @@ export default function Home() {
                             View Menu
                         </button>
 
-                        {session_id !== null && user_id !== null ? (
-                            <button
-                                onClick={() => {
-                                    navigate(
-                                        '/items-bill'
-                                    )
-                                }}
-                                className=" border-primary border-2 lowercase bg-white  outline-none font-semibold  h-[40px] w-[40%] rounded-full text-2xl font-SUSE text-primary ">
-                                Pay bill
-                            </button>
-                        ) : null}
+                        <button
+                            onClick={() => {
+                                navigate(
+                                    session_id !== null && user_id !== null ? '/items-bill' : `/empty-cart/?restaurant_id=${location.pathname.split('/')[2]
+                                        }&restaurant_name=${data?.name}`
+                                )
+                            }}
+                            className=" border-primary border-2 lowercase bg-white  outline-none font-semibold  h-[40px] w-[40%] rounded-full text-2xl font-SUSE text-primary ">
+                            Pay bill
+                        </button>
+
                     </div>
                 </div>
             </div>
