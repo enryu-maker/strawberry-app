@@ -15,7 +15,7 @@ export default function ItemBill() {
     const dispatch = useDispatch()
     const session_id = useSelector(state => state.Reducers.session_id)
     const table_id = useSelector(state => state.Reducers.table_id)
-    const user_id = useSelector(state => state.Reducers.user_id)
+    const user_id = parseInt(useSelector(state => state.Reducers.user_id))
 
 
 
@@ -24,17 +24,33 @@ export default function ItemBill() {
     const [data, setData] = React.useState([])
     const [mode, setMode] = React.useState([])
     const [bottomshow, setBottomshow] = React.useState(false)
-
+    const [selectedMode, setSelectedMode] = React.useState('')
     function getTotal(data) {
         return data.reduce((total, item) => {
             return total + (item.order_total || 0); // Add the price if it exists, otherwise add 0
         }, 0); // Start with a total of 0
     }
+    function formatData(data) {
+        var filteredData = [];
+
+        // Check if the selectedMode is set and its first item has the type 'my_items_only'
+        if (selectedMode?.[0]?.type === "my_items_only") {
+            // Filter the data to include only items where the user_id matches
+            filteredData = data?.filter(item => item?.user_id === user_id);
+            console.log("Filtered Data:", filteredData);
+            return filteredData;
+        }
+        // If the condition doesn't match, return the full data set
+        else {
+            return data;
+        }
+    }
+
 
     React.useEffect(() => {
         dispatch(getOrder(session_id, setLoading, setData))
+        console.log("data", data)
         dispatch(getMode(setMode, setLoading, session_id, user_id))
-
     }, [dispatch])
     return (
         <div className="h-screen overflow-x-hidden">
@@ -90,11 +106,11 @@ export default function ItemBill() {
                 </div>
                 <hr className="w-full"></hr>
                 <div
-                    className="flex flex-col bg-white gap-5 items-start px-5 py-4 justify- mt-5 h-full w-full overflow-y-auto font-SUSE"
+                    className="flex flex-col bg-white gap-5 items-start px-5 py-4 mt-5 h-full w-full overflow-y-auto font-SUSE"
                 >
                     {
-                        data?.map((item, index) => (
-                            <div className="flex flex-row justify-between w-full h-fit text-md">
+                        formatData(data)?.map((item, index) => (
+                            <div className={`flex flex-row justify-between w-full h-fit text-md`}>
                                 <div className="flex flex-row justify-evenly items-start align-middle space-x-5 max-w-screen">
                                     <p className="bg-gray-100 p-1 px-2 rounded-md text-xs">
                                         {index + 1}
@@ -107,8 +123,9 @@ export default function ItemBill() {
                                 <div>
                                     <p> € {item?.order_total}</p>
                                 </div>
-                            </div>
+                            </div >
                         ))
+
                     }
 
                 </div>
@@ -126,6 +143,7 @@ export default function ItemBill() {
                         isOpen={bottomshow}
                         setIsopen={setBottomshow}
                         paymentMethods={mode}
+                        setSelectedMode={setSelectedMode}
                     />
                 ) : null}
             </motion.div>

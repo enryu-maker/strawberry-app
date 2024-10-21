@@ -5,6 +5,7 @@ import CustomButton from '../../components/CustomButton'
 import TipOptions from './modals/TipOptions'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { FiCheck } from 'react-icons/fi'
 
 function Tip() {
     const { state } = useLocation()
@@ -48,12 +49,15 @@ function Tip() {
                                 onClick={() => navigate(-1)}
                             />
                         </div>
-                        <div className="flex flex-col gap-2 w-full h-full pt-1 justify-center align-middle text-center">
+                        <div className="flex flex-col w-full h-full pt-1 gap-2 justify-center align-middle text-center">
                             <div>
                                 <hr className="p-[2px] rounded-lg bg-black"></hr>
                             </div>
-                            <div>
-                                <p className="text-sm font-base">Tip</p>
+                            <div className="flex justify-center items-center gap-2">
+                                <p className="text-sm font-base">
+                                    Pay <span></span>
+                                </p>
+                                <FiCheck />
                             </div>
                         </div>
                         <div className="flex flex-col gap-2 w-full pt-1 justify-center align-middle text-center">
@@ -61,7 +65,9 @@ function Tip() {
                                 <hr className="p-[2px] rounded-lg bg-black opacity-50"></hr>
                             </div>
                             <div>
-                                <p className="text-sm font-base">Pay</p>
+                                <p className="text-sm font-base">
+                                    Tip <span></span>
+                                </p>
                             </div>
                         </div>
                     </div>

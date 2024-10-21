@@ -48,14 +48,19 @@ function PaymentMethod() {
         content: ''
     })
     const handlepaymentclick = () => {
-        dispatch(createPayment(
-            state?.session_id,
-            state?.user_id,
-            state?.method,
-            state?.amount + state?.tip + state?.amount * 0.01,
-            setLoading,
-            navigate
-        ))
+        navigate(
+            '/tip', {
+            state: state
+        }
+        )
+        // dispatch(createPayment(
+        //     state?.session_id,
+        //     state?.user_id,
+        //     state?.method,
+        //     state?.amount + state?.amount * 0.01,
+        //     setLoading,
+        //     navigate
+        // ))
     }
     const handleInfoClick = (event, content) => {
         setPopoverState({
@@ -95,9 +100,8 @@ function PaymentMethod() {
                             </div>
                             <div className="flex justify-center items-center gap-2">
                                 <p className="text-sm font-base">
-                                    Tip <span></span>
+                                    Pay <span></span>
                                 </p>
-                                <FiCheck />
                             </div>
                         </div>
                         <div className="flex flex-col gap-2 w-full pt-1 justify-center align-middle text-center">
@@ -105,7 +109,9 @@ function PaymentMethod() {
                                 <hr className="p-[2px] rounded-lg bg-black opacity-50"></hr>
                             </div>
                             <div>
-                                <p className="text-sm font-base">Pay</p>
+                                <p className="text-sm font-base">
+                                    Tip <span></span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -152,7 +158,6 @@ function PaymentMethod() {
                         <div className="flex w-full h-full justify-between text-gray-500">
                             <div className="space-y-2 w-full flex flex-col justify-start">
                                 <p>Subtotal</p>
-                                <p>Tip</p>
                                 <p className="flex items-center gap-2">
                                     <Popover
                                         isOpen={
@@ -190,9 +195,9 @@ function PaymentMethod() {
                             </div>
                             <div className="space-y-2 w-full flex flex-col justify-end items-end text-black font-medium">
                                 <p>€ {state?.amount}</p>
-                                <p>€ {state?.tip}</p>
+                                {/* <p>€ {state?.tip}</p> */}
                                 <p>€ {state?.amount * 0.01}</p>
-                                <p>€ {state?.amount + state?.tip + state?.amount * 0.01}</p>
+                                <p>€ {state?.amount + state?.amount * 0.01}</p>
                             </div>
                         </div>
                     </div>

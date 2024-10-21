@@ -1,33 +1,60 @@
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { image } from '../../../assets/image'
-import CustomButton from '../../../components/CustomButton'
-import { CustomButton2 } from '../../../components/CustomButton'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { createPayment } from '../../../store/actions/sessionAction'
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { image } from '../../../assets/image';
+import CustomButton from '../../../components/CustomButton';
+import { CustomButton2 } from '../../../components/CustomButton';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function BottomOptions({ isOpen, setIsopen, paymentMethods }) {
+export default function BottomOptions({ isOpen, setIsopen, paymentMethods, setSelectedMode }) {
     const navi = useNavigate();
     const dispatch = useDispatch();
     const [billMethod, setBillMethod] = useState(''); // Track which option is selected
+    const [splitMethod, setSplitMethod] = useState(false); // Track if Custom split method is selected
+    const [customAmount, setCustomAmount] = useState(''); // Track custom amount input
     const [loading, setLoading] = useState(false); // State to handle loading
 
     const session_id = useSelector(state => state.Reducers.session_id);
     const table_id = useSelector(state => state.Reducers.table_id);
     const user_id = useSelector(state => state.Reducers.user_id);
 
-    // Extract full method and split methods
-    const { full, ...splitMethods } = paymentMethods;
+    // Extract full payment and split payment options
+    const fullPaymentOption = paymentMethods[0].data[0]; // Full Payment
+    const splitPaymentOptions = paymentMethods[1].data;  // Split Payment methods
+    const isSplitLocked = paymentMethods[1].locked;      // Split category lock status
+    const isFullLocked = fullPaymentOption.locked;       // Full category lock status
 
-    // Check if Full payment is locked
-    const isFullLocked = full.locked;
+    // Filter split options where locked is false
+    const availableSplitOptions = splitPaymentOptions.filter(option => !option.locked);
 
-    // Filter split methods where locked is false
-    const availableSplitOptions = Object.values(splitMethods).filter(method => !method.locked);
+    React.useEffect(() => {
+        setSelectedMode(isFullLocked ? fullPaymentOption : availableSplitOptions);
+    }, []);
 
-    // Check if all split options are locked
-    const allSplitOptionsLocked = availableSplitOptions.length === 0;
+    // Function to handle custom amount input change
+    const handleCustomAmountChange = (e) => {
+        setCustomAmount(e.target.value);
+    };
+
+    // Function to handle navigation for custom amount payment
+    const handleCustomPayment = () => {
+        const customAmountNumber = parseFloat(customAmount); // Convert input to a number
+        const totalAmount = fullPaymentOption.amount;
+        const remainingAmount = totalAmount - customAmountNumber; // Subtract the custom amount from total
+
+        if (customAmountNumber > 0 && customAmountNumber <= totalAmount) {
+            navi('/payment-method', {
+                state: {
+                    method: 'custom',
+                    amount: customAmountNumber,
+                    session_id: session_id,
+                    user_id: user_id,
+                }
+            });
+        } else {
+            alert('Please enter a valid amount less than or equal to the total.');
+        }
+    };
 
     return (
         <AnimatePresence mode="wait">
@@ -51,10 +78,7 @@ export default function BottomOptions({ isOpen, setIsopen, paymentMethods }) {
                     >
                         <div className="flex justify-between w-full p-4">
                             <p className="font-medium text-xl">Pay Your Bill</p>
-                            <button
-                                onClick={() => setIsopen(false)}
-                                className=""
-                            >
+                            <button onClick={() => setIsopen(false)}>
                                 <img
                                     src={image.close}
                                     alt="close"
@@ -72,10 +96,10 @@ export default function BottomOptions({ isOpen, setIsopen, paymentMethods }) {
                                             <CustomButton
                                                 text="Full Payment"
                                                 style={'scale-90 -mb-0'}
-                                                onClick={() => navi('/tip', {
+                                                onClick={() => navi('/payment-method', {
                                                     state: {
-                                                        method: paymentMethods["full"].type,
-                                                        amount: paymentMethods["full"].amount,
+                                                        method: fullPaymentOption.type,
+                                                        amount: fullPaymentOption.amount,
                                                         session_id: session_id,
                                                         user_id: user_id,
                                                     }
@@ -90,7 +114,7 @@ export default function BottomOptions({ isOpen, setIsopen, paymentMethods }) {
                                             <CustomButton2
                                                 text="Split Bill"
                                                 style={'scale-90 -mb-0 bg-transparent border-2 border-primary'}
-                                                onClick={() => setBillMethod('split')} // Show split options on click
+                                                onClick={() => setBillMethod('split')}
                                             />
                                         </div>
                                     )}
@@ -98,39 +122,56 @@ export default function BottomOptions({ isOpen, setIsopen, paymentMethods }) {
                             )}
 
                             {/* SPLIT Options Section */}
-                            {billMethod === 'split' && (
-                                <>
-                                    <div className="w-full h-full">
-                                        {availableSplitOptions.length > 0 ? (
-                                            availableSplitOptions.map((method) => (
+
+                            {
+                                splitMethod ?
+                                    (
+                                        <div className="w-full h-full flex flex-col justify-center items-center">
+                                            <input
+                                                type="number"
+                                                value={customAmount}
+                                                onChange={handleCustomAmountChange}
+                                                placeholder="Enter custom amount"
+                                                className="py-3 px-6 border-2 border-primary rounded-full w-[88%]"
+                                            />
+                                            <CustomButton2
+                                                text="Submit Custom Payment"
+                                                style={'scale-90 mt-2'}
+                                                onClick={handleCustomPayment} // Handle custom amount submission
+                                            />
+                                        </div>
+                                    )
+                                    :
+                                    billMethod === 'split' && (
+                                        <div className="w-full h-full">
+                                            {availableSplitOptions.map((method) => (
                                                 <div key={method?.type} className="w-full h-full">
                                                     <CustomButton2
-                                                        text={method?.name}
+                                                        text={method?.name === "Custom" ? method?.name : method?.name + ' €' + method?.amount}
                                                         style={'scale-90 -mb-0 bg-transparent border-2 border-primary'}
                                                         onClick={() => {
-                                                            navi('/tip', {
-                                                                state: {
-                                                                    method: method.type,
-                                                                    amount: method.amount,
-                                                                    session_id: session_id,
-                                                                    user_id: user_id,
-                                                                }
-                                                            })
+                                                            if (method?.name === "Custom") {
+                                                                setSplitMethod(true); // Show input for custom amount
+                                                            } else {
+                                                                navi('/payment-method', {
+                                                                    state: {
+                                                                        method: method.type,
+                                                                        amount: method.amount,
+                                                                        session_id: session_id,
+                                                                        user_id: user_id,
+                                                                    }
+                                                                });
+                                                            }
                                                         }}
                                                     />
                                                 </div>
-                                            ))
-                                        ) : (
-                                            <p className="text-center text-gray-500">No Split Options Available</p>
-                                        )}
-                                    </div>
-                                </>
-                            )}
+                                            ))}
+                                        </div>
+                                    )}
                         </div>
                     </motion.div>
                 </>
             ) : null}
         </AnimatePresence>
-    )
+    );
 }
-

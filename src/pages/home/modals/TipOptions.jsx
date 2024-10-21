@@ -4,15 +4,24 @@ import { image } from '../../../assets/image'
 import { useRef } from 'react'
 import CustomButton from '../../../components/CustomButton'
 import { useNavigate } from 'react-router-dom'
+import { createPayment } from '../../../store/actions/sessionAction'
+import { useDispatch } from 'react-redux'
 export default function TipOptions({ isOpen, setIsopen, tip, total, data }) {
     const ref = useRef(null)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [loading, setLoading] = React.useState(false)
     const handlenavigate = () => {
         if (tip != '') {
             data['tip'] = tip
-            navigate('/payment-method', {
-                state: data
-            })
+            dispatch(createPayment(
+                data?.session_id,
+                data?.user_id,
+                data?.method,
+                data?.amount + tip + data?.amount * 0.01,
+                setLoading,
+                navigate
+            ))
         }
     }
     return (
@@ -52,8 +61,9 @@ export default function TipOptions({ isOpen, setIsopen, tip, total, data }) {
                         </div>
                         <div className="w-full h-fit">
                             <CustomButton
-                                text={'Proceed'}
+                                text={'Proceed to pay'}
                                 onClick={handlenavigate}
+
                             />
                         </div>
                     </div>

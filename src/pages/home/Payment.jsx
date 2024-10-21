@@ -29,6 +29,7 @@ export default function Payment() {
         return JSON.stringify(result) // Return the data as a JSON string
     }
 
+
     React.useEffect(() => {
         const setFp = async () => {
             const fp = await FingerprintJS.load()
