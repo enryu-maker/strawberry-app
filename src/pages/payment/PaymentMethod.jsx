@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import { IoIosArrowBack } from 'react-icons/io'
-import { FiCheck } from 'react-icons/fi'
-import { image } from '../../assets/image'
 import { Popover } from 'react-tiny-popover'
 import { CiCircleInfo } from 'react-icons/ci'
-import CustomButton from '../../components/CustomButton'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import Feedback from './modals/Feedback'
+// import Feedback from './modals/Feedback'
 import { useDispatch } from 'react-redux'
 import { createPayment } from '../../store/actions/sessionAction'
+import CustomButton from '../../components/CustomButton'
+import { image } from '../../assets/image'
 
 
 function PaymentMethod() {
@@ -209,7 +208,7 @@ function PaymentMethod() {
                         <div className="flex flex-col items-center gap-5 justify-center pb-10">
                             <p className="flex space-x-2">
                                 <span>Pay secure with</span>
-                                <img src={image.logo} className="w-10 h-10" />
+                                <img src={image.logo} className="w-6 h-6" />
                                 <span className="font-semibold">
                                     Strawberry
                                 </span>
@@ -226,14 +225,14 @@ function PaymentMethod() {
                         </div>
                     </div>
                 </div>
-                {showfeedback ? (
+                {/* {showfeedback ? (
                     <Feedback
                         isOpen={showfeedback}
                         setIsopen={setshowfeedback}
                         payment={selectedPayment}
                         data={state}
                     />
-                ) : null}
+                ) : null} */}
             </motion.div>
         </AnimatePresence>
     )

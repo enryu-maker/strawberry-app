@@ -16,7 +16,7 @@ export default function SideNav({ isOpen, setIsopen }) {
     const data = useSelector((state) => state.Reducers.restaurant_data)
 
     return (
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
             {isOpen ? (
                 <motion.div
                     ref={ref}

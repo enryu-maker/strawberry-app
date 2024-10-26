@@ -8,11 +8,12 @@ export default function TextInput({
     error,
     value,
     onChange,
-    isPassword = false
+    isPassword = false,
+    style
 }) {
     const [show, setShow] = React.useState(false)
     return (
-        <div className="w-full md:w-1/2  mb-6 md:mb-0 font-SUSE ">
+        <div className={`w-full md:w-1/2  mb-6 md:mb-0 font-SUSE ${style} `}>
             <label
                 className="block font-SUSE tracking-wide text-text text-xs font-semibold mb-2"
                 htmlFor={lable}

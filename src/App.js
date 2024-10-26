@@ -7,13 +7,9 @@ import Register from './pages/auth/Register'
 import ProductInfo from './pages/home/ProductInfo'
 import Order from './pages/home/Order'
 import Payment from './pages/home/Payment'
-import Tip from './pages/home/Tip'
-import Success from './pages/home/modals/Success'
-import PaymentMethod from './pages/home/PaymentMethod'
-import ItemBill from './pages/payment/ItemBill'
-import Feedback from './pages/home/Feedback'
-import PaymentDone from './pages/home/modals/PayementDone'
-import EmptyCart from './pages/home/EmptyCart'
+import PayBill from './pages/payment/PayBill'
+import Success from './modals/Success'
+import PaymentMethod from './pages/payment/PaymentMethod'
 
 export default function App() {
     return (
@@ -23,15 +19,11 @@ export default function App() {
             <Route path="/menu/product-info" element={<ProductInfo />} />
             <Route path="/order-details" element={<Order />} />
             <Route path="/payment" element={<Payment />} />
-            <Route path="/payment-method" element={<PaymentMethod />} />
-            <Route path="/items-bill" element={<ItemBill />} />
-            <Route path="/tip" element={<Tip />} />
             <Route path="/success" element={<Success />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/feedback" element={<Feedback />} />
-            <Route path="/payment-done" element={<PaymentDone />} />
-            <Route path="/empty-cart" element={<EmptyCart />} />
+            <Route path="/items-bill" element={<PayBill />} />
+            <Route path="/payment-method" element={<PaymentMethod />} />
         </Routes>
     )
 }

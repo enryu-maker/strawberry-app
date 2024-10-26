@@ -1,13 +1,15 @@
 import React from 'react'
 import { RxCross1 } from 'react-icons/rx'
 import { useNavigate } from 'react-router-dom'
+import { image } from '../assets/image'
 
 export default function Header() {
     const navigate = useNavigate()
     return (
         <div className="h-[70px] px-5 flex justify-between items-center bg-white w-full shadow-md">
             <p className=" text-2xl flex font-medium items-center space-x-2 font-SUSE">
-                🍓 strawberry
+                <img src={image.logo} className="w-6 h-6" />
+                strawberry
             </p>
             <button
                 onClick={() => {

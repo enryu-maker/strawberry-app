@@ -27,7 +27,7 @@ export default function Order() {
                     <CartCard key={index} item={item} />
                 ))}
             </div>
-            <div className="flex sticky bottom-0 font-Facinate text-white text-2xl w-full justify-center z-50 items-center">
+            <div className="flex sticky bottom-0 font-SUSE text-white text-2xl w-full justify-center z-50 items-center">
                 <button
                     onClick={() => {
                         navigate('/payment')
