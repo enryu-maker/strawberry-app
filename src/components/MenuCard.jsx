@@ -22,7 +22,7 @@ export default function MenuCard({ item }) {
                     {item?.description.length > 60 ? `${item.description.slice(0, 60)}...` : item.description}
                 </p>
                 <h2 className=" font-bold text-lg text-primary">
-                    € {item?.price}
+                    {item?.currency} {item?.price}
                 </h2>
             </div>
             <img

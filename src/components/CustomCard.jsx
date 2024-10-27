@@ -14,7 +14,7 @@ export default function CustomCard({ state, custom, existingQty }) {
                 </p>
                 <div className="w-[40%] flex justify-center items-start space-x-3 ">
                     <p className="text-gray-600 text-sm font-semibold leading-relaxed">
-                        € {custom?.price}
+                        {state?.currency} {custom?.price}
                     </p>
                     <button
                         onClick={() => {

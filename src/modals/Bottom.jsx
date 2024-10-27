@@ -306,7 +306,7 @@ export default function Bottom({
                                                     <div key={index} className="w-full rounded-full items-center flex justify-between bg-white h-[65px] mt-3">
                                                         <p className=' text-lg w-[70%] px-5 font-medium font-SUSE'>{item?.name}</p>
                                                         <div className="flex w-[30%] space-x-3 items-center justify-center">
-                                                            <p className="text-lg font-medium font-SUSE">{item?.price}</p>
+                                                            <p className="text-lg font-medium font-SUSE">{item?.currency} {item?.price}</p>
                                                             <button
                                                                 onClick={() => {
                                                                     toggleSelectItem(item)
@@ -326,7 +326,7 @@ export default function Bottom({
                                         <div className="h-[200px] w-[100dvw] flex flex-col justify-evenly items-center bg-white fixed bottom-0 px-3">
                                             <div className="flex w-[88%] justify-between items-center">
                                                 <p className=' text-xl font-SUSE'>Total bill</p>
-                                                <p className="font-medium font-SUSE text-xl">${calculateTotal()}</p>
+                                                <p className="font-medium font-SUSE text-xl">{cartData[0].currency} {calculateTotal()}</p>
                                             </div>
                                             {
                                                 selectedItems.length > 0 ?

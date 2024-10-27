@@ -53,6 +53,7 @@ export default function PayBill() {
         dispatch(getOrder(session_id, setLoading, setData))
         dispatch(getMode(setMode, setLoading, session_id, user_id))
     }, [dispatch])
+    console.log(data)
     return (
         <div className="h-screen overflow-x-hidden">
             <motion.div
@@ -114,7 +115,7 @@ export default function PayBill() {
                             </p>
                         </div>
                         <p className=" font-Poppins text-lg font-semibold">
-                            € {getTotal(data)}
+                            {data[0].currency} {getTotal(data)}
                         </p>
                     </div>
                 </div>
@@ -133,7 +134,7 @@ export default function PayBill() {
                                     {/* <p className=' font-SUSE text-xs'> Qty. {item?.quantity}</p> */}
                                 </div>
                                 <div>
-                                    <p> € {item?.order_total}</p>
+                                    <p> {item?.currency} {item?.order_total}</p>
                                 </div>
                             </div >
                         ))

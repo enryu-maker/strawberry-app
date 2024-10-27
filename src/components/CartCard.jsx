@@ -105,7 +105,7 @@ export default function CartCard({ item }) {
                             {item?.name}
                         </h2>
                         <p className="text-md font-bold text-gray-500">
-                            € {totalPrice.toFixed(2)} {/* Updated total price */}
+                            {item?.currency} {totalPrice.toFixed(2)} {/* Updated total price */}
                         </p>
                         {item?.is_customizable && (
                             <button

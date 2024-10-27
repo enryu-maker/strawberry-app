@@ -39,7 +39,6 @@ export default function Menu() {
 
     const cart = useSelector((state) => state.Reducers.cart);
     const menu = useSelector((state) => state.Reducers.menu);
-    console.log(menu)
     const [activeTab, setActiveTab] = React.useState(menu[0]?.value);
 
     return (
