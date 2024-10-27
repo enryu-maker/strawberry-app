@@ -115,7 +115,7 @@ export default function PayBill() {
                             </p>
                         </div>
                         <p className=" font-Poppins text-lg font-semibold">
-                            {data[0].currency} {getTotal(data)}
+                            {data[0]?.currency} {getTotal(data)}
                         </p>
                     </div>
                 </div>

@@ -253,16 +253,6 @@ export default function Bottom({
                                                             setCurrent(5)
                                                             setCurrentData(method)
                                                         }
-                                                        // else {
-                                                        //     navi('/payment-method', {
-                                                        //         state: {
-                                                        //             method: method.type,
-                                                        //             amount: method.amount,
-                                                        //             session_id: session_id,
-                                                        //             user_id: user_id,
-                                                        //         }
-                                                        //     });
-                                                        // }
                                                     }}
                                                 />
                                             </motion.div>
@@ -326,7 +316,7 @@ export default function Bottom({
                                         <div className="h-[200px] w-[100dvw] flex flex-col justify-evenly items-center bg-white fixed bottom-0 px-3">
                                             <div className="flex w-[88%] justify-between items-center">
                                                 <p className=' text-xl font-SUSE'>Total bill</p>
-                                                <p className="font-medium font-SUSE text-xl">{cartData[0].currency} {calculateTotal()}</p>
+                                                <p className="font-medium font-SUSE text-xl">{cartData[0]?.currency} {calculateTotal()}</p>
                                             </div>
                                             {
                                                 selectedItems.length > 0 ?
@@ -403,7 +393,7 @@ export default function Bottom({
                                                 onChange={handleCustomAmountChange}
                                                 className="appearance-none block w-[88%] h-[55px] rounded-xl font-SUSE px-3 text-lg  leading-tight focus:outline-primary focus:border-primary"
                                                 type={"number"}
-                                                placeholder='Add Custom Amount'
+                                                placeholder={`Add Custom Amount ${cartData[0]?.currency}`}
                                             />
                                             <CustomButton2
                                                 text="Confirm"
@@ -452,7 +442,7 @@ export default function Bottom({
                                         >
                                             <div className="flex w-[88%] justify-between items-center">
                                                 <p className=' text-xl font-SUSE'>Total bill</p>
-                                                <p className="font-medium font-SUSE text-xl">{currentData?.amount}</p>
+                                                <p className="font-medium font-SUSE text-xl">{cartData[0]?.currency} {currentData?.amount}</p>
                                             </div>
                                             <CustomButton2
                                                 text="Confirm"

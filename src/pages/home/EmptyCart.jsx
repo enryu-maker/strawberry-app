@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { animation } from '../../assets/animation'
 import Lottie from "lottie-react";
 import { baseURL } from '../../helper/helper';
+import { useSelector } from 'react-redux';
 
 export default function EmptyCart() {
     const location = useLocation()
@@ -11,6 +12,7 @@ export default function EmptyCart() {
     const queryParams = new URLSearchParams(location.search)
     const restaurant_id = queryParams.get('restaurant_id')
     const restaurant_name = queryParams.get('restaurant_name')
+    const tid = useSelector((state) => state.Reducers.table_id)
     const navigate = useNavigate()
     return (
         <div className="w-screen h-screen flex flex-col justify-center items-center bg-gray-100 font-SUSE">
@@ -41,7 +43,7 @@ export default function EmptyCart() {
                 onClick={() => {
                     navigate(
                         `/menu/?restaurant_id=${restaurant_id
-                        }&restaurant_name=${restaurant_name}`
+                        }&restaurant_name=${restaurant_name}&table_id=${tid}`
                     )
                 }}
                 className="bg-primary text-white px-6 py-3 mt-4 rounded-full shadow-lg flex items-center space-x-2 transition-transform transform hover:scale-105">

@@ -34,13 +34,16 @@ export default function Payment() {
         const setFp = async () => {
             const fp = await FingerprintJS.load()
             const { visitorId } = await fp.get()
+            console.log(visitorId)
+            console.log(tid)
+
             dispatch(startSession(tid, visitorId, setConnected))
             setTimeout(() => {
                 setLoading(false)
             }, 1500)
         }
         setFp()
-    }, [dispatch, tid])
+    }, [dispatch])
     return (
         <div className="bg-white w-full h-[100vh] font-SUSE">
             <div className="flex justify-between top-0 sticky z-50  px-5 py-5 h-[10vh] items-center w-full">
@@ -58,7 +61,7 @@ export default function Payment() {
             </div>
             {!loading ? (
                 <div className="flex justify-center flex-col space-y-4 items-center">
-                    <button
+                    {/* <button
                         onClick={() => {
                             // logGoogleUser()
                         }}
@@ -72,7 +75,7 @@ export default function Payment() {
                         <p className="text-xl text-black font-semibold font-SUSE">
                             Pay As You Order
                         </p>
-                    </button>
+                    </button> */}
                     <button
                         onClick={() => {
                             // console.log({
