@@ -51,7 +51,7 @@ export default function Bottom({
 
     useEffect(() => {
         setSelectedMode(isFullLocked ? fullPaymentOption : availableSplitOptions);
-    }, [isFullLocked, availableSplitOptions, setSelectedMode, fullPaymentOption]);
+    }, []);
 
     const handleCustomAmountChange = (e) => {
         setCustomAmount(e.target.value);
@@ -98,7 +98,7 @@ export default function Bottom({
                     <Sheet.Header />
                     <Sheet.Content className={`${current === 3 ? 'h-full ease-linear transition-all' : 'max-h-[350px]'}`}>
                         <motion.div
-                            className={`bottom-0 w-screen p-4 bg-gray-100 rounded-t-3xl fixed z-50 ${current === 3 ? 'h-full ease-linear transition-all' : 'max-h-[300px]'}`}
+                            className={`bottom-0 w-screen p-4 bg-gray-100 rounded-t-3xl fixed z-50 ${current === 3 ? 'h-full ease-linear transition-all' : 'max-h-[320px]'}`}
                             initial={{ opacity: 0, scale: 0.8, y: 100 }}
                             animate={{ y: 0, opacity: 1, scale: 1 }}
                             exit={{ y: 100, opacity: 0, scale: 0.8 }}
@@ -164,7 +164,7 @@ export default function Bottom({
                                                     <CustomButton2
                                                         text="Split the bill"
                                                         style={'scale-90 -mb-0 bg-transparent border-2 border-primary'}
-                                                        onClick={() => setBillMethod('split')}
+                                                        onClick={() => setCurrent(2)}
                                                     />
                                                 </motion.div>
                                             )}
@@ -235,7 +235,7 @@ export default function Bottom({
                                                 initial={{ opacity: 0, scale: 0.9 }}
                                                 animate={{ opacity: 1, scale: 1 }}
                                                 transition={{ duration: 0.4 }}
-                                                className="w-full h-full"
+                                                className='h-full'
                                             >
                                                 <CustomButton2
                                                     text={method?.name}
@@ -253,16 +253,16 @@ export default function Bottom({
                                                             setCurrent(5)
                                                             setCurrentData(method)
                                                         }
-                                                        else {
-                                                            navi('/payment-method', {
-                                                                state: {
-                                                                    method: method.type,
-                                                                    amount: method.amount,
-                                                                    session_id: session_id,
-                                                                    user_id: user_id,
-                                                                }
-                                                            });
-                                                        }
+                                                        // else {
+                                                        //     navi('/payment-method', {
+                                                        //         state: {
+                                                        //             method: method.type,
+                                                        //             amount: method.amount,
+                                                        //             session_id: session_id,
+                                                        //             user_id: user_id,
+                                                        //         }
+                                                        //     });
+                                                        // }
                                                     }}
                                                 />
                                             </motion.div>
@@ -337,25 +337,20 @@ export default function Bottom({
                                                             <p>Cancle Split</p>
                                                         </button>
                                                         <button
-                                                            onClick={() => {
-                                                                setBottomshow(false)
-                                                                setCurrent(null)
-                                                                resetPaymentOptions();
-                                                            }}
+                                                            onClick={() => navi('/payment-method', {
+                                                                state: {
+                                                                    method: 'my_items_only',
+                                                                    amount: calculateTotal(),
+                                                                    session_id: session_id,
+                                                                    user_id: user_id,
+                                                                }
+                                                            })}
                                                             className=' bg-primary text-white w-[44%] flex justify-center items-center  md:w-1/2 py-4 font-medium text-lg rounded-full font-SUSE   mb-6 md:mb-0 '>
                                                             <p>Confirm</p>
                                                         </button>
                                                     </div>
                                                     :
                                                     <button
-                                                        onClick={() => navi('/payment-method', {
-                                                            state: {
-                                                                method: 'my_items_only',
-                                                                amount: calculateTotal(),
-                                                                session_id: session_id,
-                                                                user_id: user_id,
-                                                            }
-                                                        })}
                                                         disabled
                                                         className=' bg-gray-300 text-black w-full flex justify-center items-center  md:w-1/2 py-4 font-medium text-lg rounded-full font-SUSE   mb-6 md:mb-0 '>
                                                         <p>Confirm</p>

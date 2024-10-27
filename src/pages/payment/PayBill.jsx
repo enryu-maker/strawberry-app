@@ -1,16 +1,13 @@
 import React from 'react'
-import { image } from '../../assets/image'
-import CircularButton from '../../components/CircularButton'
 import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import CustomButton from '../../components/CustomButton'
-
-// import BottomOptions from '../home/modals/BottomOptions'
 import { AiOutlineMenu, AiOutlineUser } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { getMode, getOrder } from '../../store/actions/sessionAction'
 import SideNav from '../../modals/SideNav'
 import Bottom from '../../modals/Bottom'
+import { image } from '../../assets/image'
 
 export default function PayBill() {
     const navigate = useNavigate()
@@ -18,6 +15,7 @@ export default function PayBill() {
     const session_id = useSelector(state => state.Reducers.session_id)
     const table_id = useSelector(state => state.Reducers.table_id)
     const user_id = parseInt(useSelector(state => state.Reducers.user_id))
+    const resdata = useSelector((state) => state.Reducers.restaurant_data)
 
 
 
@@ -89,9 +87,22 @@ export default function PayBill() {
                         // opacity: bottomshow ? 0.3 : 1,
                         transition: 'opacity 0.5s ease'
                     }}
-                    className="flex flex-col z-0 bg-white items-center px-5 justify-center w-full py-8 font-SUSE"
+                    className="flex flex-col z-0 bg-white items-center px-5 justify-center w-full py-0 font-SUSE"
                 >
-                    <div className="flex justify-between w-full items-start">
+                    <div
+                        style={{
+                            backgroundImage: `url(${resdata?.restaurant_images?.HERO[0]})`
+                        }}
+                        className="h-[200px] w-[100vw] bg-cover flex flex-col justify-end relative"
+                    >
+                        <img
+                            src={resdata?.image}
+                            alt={resdata?.name || 'Restaurant'}
+                            className="h-[100px] w-[100px] bg-black object-contain rounded-full -mb-6 mx-auto shadow-md" // Use margin bottom for spacing
+                        />
+                    </div>
+
+                    <div className="flex justify-between w-full mt-6 items-start">
                         <div className="space-y-1">
                             <p className=" font-Poppins text-lg font-semibold">
                                 Total Bill
@@ -111,15 +122,13 @@ export default function PayBill() {
                 >
                     {
                         data?.map((item, index) => (
-                            <div className={`flex flex-row justify-between w-full h-fit text-md`}>
+                            <div key={index} className={`flex flex-row justify-between w-full h-fit text-md`}>
                                 <div className="flex flex-row justify-evenly items-start align-middle space-x-5 max-w-screen">
                                     <p className="bg-gray-100 p-1 px-2 rounded-md text-xs">
-                                        {index + 1}
+                                        {item?.quantity}
                                     </p>
-                                    <div>
-                                        <p className=' font-SUSE text-sm'> {item?.name}</p>
-                                        <p className=' font-SUSE text-xs'> Qty. {item?.quantity}</p>
-                                    </div>
+                                    <p className=' font-SUSE text-md'> {item?.name}</p>
+                                    {/* <p className=' font-SUSE text-xs'> Qty. {item?.quantity}</p> */}
                                 </div>
                                 <div>
                                     <p> € {item?.order_total}</p>

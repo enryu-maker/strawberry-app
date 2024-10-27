@@ -10,6 +10,9 @@ import Payment from './pages/home/Payment'
 import PayBill from './pages/payment/PayBill'
 import Success from './modals/Success'
 import PaymentMethod from './pages/payment/PaymentMethod'
+import Tip from './pages/payment/Tip'
+import Done from './pages/payment/Done'
+import Feedback from './pages/payment/Feedback'
 
 export default function App() {
     return (
@@ -24,6 +27,9 @@ export default function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/items-bill" element={<PayBill />} />
             <Route path="/payment-method" element={<PaymentMethod />} />
+            <Route path="/tip" element={<Tip />} />
+            <Route path="/payment-done" element={<Done />} />
+            <Route path="/feedback" element={<Feedback />} />
         </Routes>
     )
 }
