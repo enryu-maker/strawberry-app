@@ -15,7 +15,6 @@ export default function ProductInfo() {
     const [loading, setLoading] = React.useState(false)
     const [data, setData] = React.useState([])
     const [notes, setNotes] = React.useState("")
-    console.log(state)
     const navigate = useNavigate();
     const dispatch = useDispatch();
 

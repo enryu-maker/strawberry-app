@@ -14,7 +14,6 @@ import { signInWithGooglePopup } from '../../helper/firebase.utils'
 export default function Login() {
     const navigate = useNavigate()
     const logGoogleUser = async () => {
-        console.log('hello')
         const response = await signInWithGooglePopup()
         console.log(response)
     }

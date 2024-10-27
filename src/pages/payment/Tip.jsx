@@ -9,7 +9,6 @@ import { image } from '../../assets/image'
 
 function Tip() {
     const { state } = useLocation()
-    console.log(state)
     const [selectedTip, setSelectedTip] = useState(null)
     const [bottomshow, setBottomshow] = React.useState(false)
     const [tipamount, setTipamount] = React.useState('')

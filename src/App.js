@@ -32,7 +32,6 @@ export default function App() {
             <Route path="/payment-done" element={<Done />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/empty-cart" element={<EmptyCart />} />
-
         </Routes>
     )
 }

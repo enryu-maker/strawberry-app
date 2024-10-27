@@ -15,7 +15,6 @@ export default function Feedback({ isOpen, setIsopen }) {
     const [rating, setRating] = useState(Number) // Initial value
     const [error, setError] = useState(false) // Initial value
     const restaurant_data = useSelector((state) => state.Reducers.restaurant_data)
-    console.log(restaurant_data)
 
     const navigate = useNavigate()
 

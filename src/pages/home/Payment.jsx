@@ -34,8 +34,6 @@ export default function Payment() {
         const setFp = async () => {
             const fp = await FingerprintJS.load()
             const { visitorId } = await fp.get()
-            console.log(visitorId)
-            console.log(tid)
             dispatch(startSession(tid, visitorId, setConnected))
             setTimeout(() => {
                 setLoading(false)
@@ -77,11 +75,11 @@ export default function Payment() {
                     </button>
                     <button
                         onClick={() => {
-                            console.log({
-                                session_id: session_id,
-                                session_user_id: user_id,
-                                items_data: getData()
-                            })
+                            // console.log({
+                            //     session_id: session_id,
+                            //     session_user_id: user_id,
+                            //     items_data: getData()
+                            // })
                             dispatch(
                                 createOrder(
                                     {

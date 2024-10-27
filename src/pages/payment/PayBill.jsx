@@ -40,7 +40,6 @@ export default function PayBill() {
         if (selectedMode?.[0]?.type === "my_items_only") {
             // Filter the data to include only items where the user_id matches
             filteredData = data?.filter(item => item?.user_id === user_id);
-            console.log("Filtered Data:", filteredData);
             return filteredData;
         }
         // If the condition doesn't match, return the full data set

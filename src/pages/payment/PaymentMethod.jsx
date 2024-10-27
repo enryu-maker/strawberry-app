@@ -13,7 +13,6 @@ import { image } from '../../assets/image'
 
 function PaymentMethod() {
     const { state } = useLocation()
-    console.log(state)
     const data = [
         {
             name: 'Mastercard',
