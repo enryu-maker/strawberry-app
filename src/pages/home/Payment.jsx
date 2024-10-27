@@ -16,17 +16,19 @@ export default function Payment() {
     const cart = useSelector((state) => state.Reducers.cart)
     const session_id = useSelector((state) => state.Reducers.session_id)
     const user_id = useSelector((state) => state.Reducers.user_id)
-
     function getData() {
-        const data = {}
-        cart.forEach((item) => {
-            // Use forEach instead of map
-            var id = String(item?.id)
-            var qty = item?.qty
-            data[id] = qty
-        })
-        return JSON.stringify(data) // Return the data as a JSON string
+        let result = {};
+
+        cart.forEach((item, index) => {
+            result[item?.id] = {
+                quantity: item.qty,
+                customizations: item.customizations || {},
+                notes: item.notes || ""
+            };
+        });
+        return JSON.stringify(result) // Return the data as a JSON string
     }
+
 
     React.useEffect(() => {
         const setFp = async () => {
@@ -75,11 +77,11 @@ export default function Payment() {
                     </button>
                     <button
                         onClick={() => {
-                            // console.log({
-                            //     session_id: session_id,
-                            //     session_user_id: user_id,
-                            //     items_data: getData()
-                            // })
+                            console.log({
+                                session_id: session_id,
+                                session_user_id: user_id,
+                                items_data: getData()
+                            })
                             dispatch(
                                 createOrder(
                                     {
@@ -119,7 +121,7 @@ export default function Payment() {
                             </>
                         )}
                     </button>
-                    <p className=" font-SUSE">
+                    <p className=" font-SUSE text-center">
                         By continuing, I agree to User Terms and Privacy Policy
                     </p>
                     <p className=" font-SUSE">

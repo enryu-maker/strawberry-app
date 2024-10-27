@@ -17,6 +17,10 @@ export default function Home() {
     const data = useSelector((state) => state.Reducers.restaurant_data)
     const session_id = useSelector((state) => state.Reducers.session_id)
     const user_id = useSelector((state) => state.Reducers.user_id)
+    const table_id = useSelector((state) => state.Reducers.table_id)
+
+    const cart = useSelector((state) => state.Reducers.cart)
+
 
     React.useEffect(() => {
         dispatch(
@@ -58,7 +62,7 @@ export default function Home() {
                             onClick={() => {
                                 navigate(
                                     `/menu/?restaurant_id=${location.pathname.split('/')[2]
-                                    }&restaurant_name=${data?.name}`
+                                    }&restaurant_name=${data?.name}&table_id=${table_id}`
                                 )
                             }}
                             className=" bg-primary outline-none  font-semibold  h-[40px] w-[40%] rounded-full text-2xl font-SUSE text-white"
@@ -69,8 +73,8 @@ export default function Home() {
                         <button
                             onClick={() => {
                                 navigate(
-                                    session_id !== null && user_id !== null ? '/items-bill' : `/empty-cart/?restaurant_id=${location.pathname.split('/')[2]
-                                        }&restaurant_name=${data?.name}`
+                                    session_id !== null && user_id !== null && cart.length > 0 ? '/items-bill' : `/empty-cart/?restaurant_id=${location.pathname.split('/')[2]
+                                        }&restaurant_name=${data?.name}&table_id=${table_id}`
                                 )
                             }}
                             className=" border-primary border-2 lowercase bg-white  outline-none font-semibold  h-[40px] w-[40%] rounded-full text-2xl font-SUSE text-primary ">

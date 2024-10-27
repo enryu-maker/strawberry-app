@@ -2,7 +2,7 @@ import React from 'react';
 import { AiOutlineMenu, AiOutlineUser } from 'react-icons/ai';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMenu, getRestaurant } from '../../store/actions/homeActions';
+import { getMenu, getRestaurant, storeQRData } from '../../store/actions/homeActions';
 import { AnimatePresence } from 'framer-motion';
 import {
     Tabs,
@@ -24,6 +24,12 @@ export default function Menu() {
 
     React.useEffect(() => {
         const params = new URLSearchParams(location.search);
+        dispatch(
+            storeQRData(
+                params.get('restaurant_id'),
+                params.get('table_id')
+            )
+        )
         dispatch(getRestaurant(params.get('restaurant_id')));
         dispatch(getMenu(params.get('restaurant_id')));
         setTimeout(() => {

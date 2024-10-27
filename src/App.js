@@ -13,6 +13,7 @@ import PaymentMethod from './pages/payment/PaymentMethod'
 import Tip from './pages/payment/Tip'
 import Done from './pages/payment/Done'
 import Feedback from './pages/payment/Feedback'
+import EmptyCart from './pages/home/EmptyCart'
 
 export default function App() {
     return (
@@ -30,6 +31,8 @@ export default function App() {
             <Route path="/tip" element={<Tip />} />
             <Route path="/payment-done" element={<Done />} />
             <Route path="/feedback" element={<Feedback />} />
+            <Route path="/empty-cart" element={<EmptyCart />} />
+
         </Routes>
     )
 }

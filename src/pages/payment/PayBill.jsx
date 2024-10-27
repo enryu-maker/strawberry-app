@@ -8,6 +8,7 @@ import { getMode, getOrder } from '../../store/actions/sessionAction'
 import SideNav from '../../modals/SideNav'
 import Bottom from '../../modals/Bottom'
 import { image } from '../../assets/image'
+import EmptyCart from '../home/EmptyCart'
 
 export default function PayBill() {
     const navigate = useNavigate()
@@ -16,6 +17,8 @@ export default function PayBill() {
     const table_id = useSelector(state => state.Reducers.table_id)
     const user_id = parseInt(useSelector(state => state.Reducers.user_id))
     const resdata = useSelector((state) => state.Reducers.restaurant_data)
+
+
 
 
 
