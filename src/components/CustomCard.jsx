@@ -1,39 +1,46 @@
-import React from 'react'
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addcustom } from '../store/actions/cartActions';
 
-export default function CustomCard({ item, setExtra }) {
-    const [count, setCount] = React.useState(0)
+export default function CustomCard({ state, custom, existingQty }) {
+    const [count1, setCount1] = React.useState(existingQty);
+    const dispatch = useDispatch();
 
     return (
-        <div className="flex justify-between items-center w-full h-[30px] font-SUSE">
-            <h1 className="font-semibold ">{item.name}</h1>
-            <h1 className=" w-[15%] font-SUSE  text-primary text-sm font-bold">
-                € {item.price * count}
-            </h1>
-            <div className="w-[50%] flex justify-center items-cnter space-x-3 ">
-                <button
-                    onClick={() => {
-                        if (count > 0) {
-                            setExtra(item.price * (count - 1))
-                            setCount(count - 1)
-                        }
-                    }}
-                    className="h-[20px] w-[20px] bg-gray-300 font-bold rounded-full flex justify-center items-center "
-                >
-                    -
-                </button>
-                <p className="text-md font-bold text-center text-gray-800">
-                    {count * item?.quantity} {''} {item?.unit}
+        <div className="w-full md:w-1/2">
+            <div className="flex items-center justify-between py-2 border-b border-gray-300">
+                <p className="text-gray-800 text-sm font-bold leading-relaxed">
+                    {custom?.name}
                 </p>
-                <button
-                    onClick={() => {
-                        setExtra(item.price * (count + 1))
-                        setCount(count + 1)
-                    }}
-                    className="h-[20px] w-[20px] bg-primary font-bold text-white rounded-full flex justify-center items-center"
-                >
-                    +
-                </button>
+                <div className="w-[40%] flex justify-center items-start space-x-3 ">
+                    <p className="text-gray-600 text-sm font-semibold leading-relaxed">
+                        € {custom?.price}
+                    </p>
+                    <button
+                        onClick={() => {
+                            if (count1 > 0) {
+                                setCount1(count1 - 1);
+                                dispatch(addcustom(state?.id, custom?.id, count1 - 1));
+                            } else {
+                                dispatch({ type: 'DELETE_CUSTOM', payload: custom?.id });
+                            }
+                        }}
+                        className="h-[25px] w-[25px] bg-gray-300 font-bold rounded-full flex justify-center items-center"
+                    >
+                        -
+                    </button>
+                    <p className="text-md font-bold text-gray-800">{count1}</p>
+                    <button
+                        onClick={() => {
+                            setCount1(count1 + 1);
+                            dispatch(addcustom(state?.id, custom?.id, count1 + 1));
+                        }}
+                        className="h-[25px] w-[25px] bg-primary font-bold text-white rounded-full flex justify-center items-center"
+                    >
+                        +
+                    </button>
+                </div>
             </div>
         </div>
-    )
+    );
 }

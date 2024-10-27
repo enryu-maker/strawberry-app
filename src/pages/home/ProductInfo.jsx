@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { addcustom, addnotes } from '../../store/actions/cartActions';
 import { getCustum } from '../../store/actions/sessionAction';
 import { toast } from 'react-toastify';
+import CustomCard from '../../components/CustomCard';
 
 export default function ProductInfo() {
     const { state } = useLocation();
@@ -34,6 +35,10 @@ export default function ProductInfo() {
                             <svg
                                 onClick={() => {
                                     setShow(!show)
+                                    dispatch({
+                                        type: 'DELETE_ITEM',
+                                        payload: state?.id
+                                    })
                                 }}
                                 xmlns="http://www.w3.org/2000/svg"
                                 class="w-3 ml-2 cursor-pointer shrink-0 fill-gray-400 hover:fill-red-500"
@@ -57,45 +62,12 @@ export default function ProductInfo() {
                             <div class="flex flex-wrap justify-between items-center">
                                 {
                                     data.map((custom, index) => (
-                                        <div key={index} class="w-full md:w-1/2 ">
-                                            <div class="flex items-center justify-between py-2 border-b border-gray-300">
-                                                <p class="text-gray-800 text-sm font-bold  leading-relaxed">
-                                                    {custom?.name}
-                                                </p>
-
-                                                <div className="w-[40%] flex justify-center items-start space-x-3 ">
-                                                    <p class="text-gray-600 text-sm font-semibold  leading-relaxed">
-                                                        € {custom?.price}
-                                                    </p>
-                                                    <button
-                                                        onClick={() => {
-                                                            if (count1 > 0) {
-                                                                setCount1(count1 - 1)
-                                                                dispatch(addcustom(state?.id, custom?.id, count1 - 1))
-                                                            } else {
-                                                                dispatch({
-                                                                    type: 'DELETE_CUSTOM',
-                                                                    payload: custom?.id
-                                                                })
-                                                            }
-                                                        }}
-                                                        className="h-[25px] w-[25px] bg-gray-300 font-bold rounded-full flex justify-center items-center"
-                                                    >
-                                                        -
-                                                    </button>
-                                                    <p className="text-md font-bold text-gray-800">{count1}</p>
-                                                    <button
-                                                        onClick={() => {
-                                                            setCount1(count1 + 1)
-                                                            dispatch(addcustom(state?.id, custom?.id, count1 + 1))
-                                                        }}
-                                                        className="h-[25px] w-[25px] bg-primary font-bold text-white rounded-full flex justify-center items-center"
-                                                    >
-                                                        +
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <CustomCard
+                                            key={index}
+                                            state={state}
+                                            custom={custom}
+                                            existingQty={0}
+                                        />
                                     ))
                                 }
                             </div>
@@ -116,6 +88,10 @@ export default function ProductInfo() {
                             <button
                                 onClick={() => {
                                     setShow(!show)
+                                    dispatch({
+                                        type: 'DELETE_ITEM',
+                                        payload: state?.id
+                                    })
                                 }}
                                 type="button"
                                 class="px-4 py-2 rounded-lg text-gray-800 text-sm border-none outline-none tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200"
@@ -139,7 +115,7 @@ export default function ProductInfo() {
                                 type="button"
                                 class="px-4 py-2 rounded-lg text-white text-sm border-none outline-none tracking-wide bg-primary"
                             >
-                                Save
+                                Add to cart
                             </button>
                         </div>
                     </div>
@@ -225,7 +201,7 @@ export default function ProductInfo() {
                         }}
                         className="w-full h-full text-red-500 text-2xl font-bold hover:bg-red-100 transition"
                     >
-                        Add to cart (€ {qty * state?.price})
+                        Add to cart
                     </button>
                 </div>
             </div>
