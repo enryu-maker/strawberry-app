@@ -11,6 +11,7 @@ import {
 import { TbWorldWww } from 'react-icons/tb'
 import { FaChevronRight } from 'react-icons/fa6'
 import { useSelector } from 'react-redux'
+import { image } from '../assets/image'
 export default function SideNav({ isOpen, setIsopen }) {
     const ref = useRef(null)
     const data = useSelector((state) => state.Reducers.restaurant_data)
@@ -83,7 +84,7 @@ export default function SideNav({ isOpen, setIsopen }) {
                             </div>
                         </div>
                         <h1 className=" font-SUSE text-xl py-3 pb-[80px] text-black text-center">
-                            🍓 strawberryclub&#8482;
+                            <img src={image.logo} className='w-18 h-20 object-cover' />
                         </h1>
                     </div>
                 </motion.div>

@@ -122,11 +122,11 @@ export default function Payment() {
                             </>
                         )}
                     </button>
-                    <p className=" font-SUSE text-center">
+                    <p className=" font-SUSE text-center w-[88%]">
                         By continuing, I agree to User Terms and Privacy Policy
                     </p>
-                    <p className=" font-SUSE">
-                        secure payments with 🍓 strawberry
+                    <p className=" font-SUSE w-[88%] text-center flex items-center justify-center">
+                        secure payments with <img src={image.logo} className='w-5 h-10 object-cover' /> Strawberry
                     </p>
                     {connected ? (
                         <div className="flex self-center items-center justify-start space-x-3 ">

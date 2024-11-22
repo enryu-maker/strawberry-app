@@ -5,12 +5,12 @@ module.exports = withMT({
     theme: {
         extend: {
             fontFamily: {
-                Sevillana: 'Sevillana',
-                SUSE: 'SUSE',
-                Facinate: 'Fascinate Inline'
+                Sevillana: 'Bodoni Moda',
+                SUSE: 'Bodoni Moda',
+                Facinate: 'Bodoni Moda'
             },
             colors: {
-                primary: '#E85050',
+                primary: '#bb2823',
                 text: '#555555'
             }
         }
